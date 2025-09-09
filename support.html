@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おうちログ - サポート</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .faq-item {
+            background: #f8f9ff;
+            margin: 15px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: #667eea;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #5a6fd8;
+        }
+
+        .faq-answer {
+            padding: 20px;
+            display: none;
+            background: white;
+        }
+
+        .faq-answer.show {
+            display: block;
+        }
+
+        .contact-info {
+            background: #e8f2ff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #667eea;
+        }
+
+        .contact-info h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .contact-info p {
+            margin: 10px 0;
+        }
+
+        .contact-info a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            margin-top: 30px;
+        }
+
+        .version-info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 おうちログ</h1>
+            <p>家族とカップルの共有アプリ - サポートページ</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>📱 アプリについて</h2>
+                <p>おうちログは、家族やカップル、ルームメイト同士で生活を共有できる便利なアプリです。スケジュール管理、家計簿、買い物リストを一つのアプリで管理し、大切な人との生活をよりスムーズにします。</p>
+                
+                <div class="version-info">
+                    <strong>アプリバージョン:</strong> 1.0.0<br>
+                    <strong>最終更新:</strong> 2024年1月1日
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🌟 主な機能</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>📅 スケジュール管理</h4>
+                        <p>家族やカップルの予定を共有し、カレンダーで一目で確認できます。重要なイベントを忘れずに管理しましょう。</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>💰 家計簿機能</h4>
+                        <p>収支を家族で共有管理し、カテゴリ別の支出分析や月次・年次の家計レポートを確認できます。</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🛒 買い物リスト</h4>
+                        <p>家族で共有する買い物リストで、必要なものを忘れずに。購入状況をリアルタイムで共有できます。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>❓ よくある質問</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Q. アプリの使い方を教えてください
+                    </div>
+                    <div class="faq-answer">
+                        <p>まず、アカウントを作成して家族やカップルでスペースを作成します。その後、スケジュール、家計簿、買い物リストの各機能を使って生活を共有できます。各画面の右上にある「？」ボタンから詳細な使い方を確認できます。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Q. データは安全に保存されますか？
+                    </div>
+                    <div class="faq-answer">
+                        <p>はい、おうちログはFirebaseを使用してデータを安全に保存しています。プライバシーを保護した設計で、認証されたユーザーのみがデータにアクセスできます。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Q. オフラインでも使えますか？
+                    </div>
+                    <div class="faq-answer">
+                        <p>基本的な機能はオフラインでも利用可能です。インターネット接続が復旧すると、データが自動的に同期されます。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Q. 通知が届きません
+                    </div>
+                    <div class="faq-answer">
+                        <p>通知設定を確認してください。iOSの場合は「設定」→「通知」→「おうちログ」で通知を許可してください。Androidの場合は「設定」→「アプリ」→「おうちログ」→「通知」で確認できます。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Q. アカウントを削除したい
+                    </div>
+                    <div class="faq-answer">
+                        <p>アカウント削除をご希望の場合は、サポートまでご連絡ください。アカウント削除後は、すべてのデータが完全に削除され、復元することはできません。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔧 トラブルシューティング</h2>
+                
+                <h3>アプリが起動しない</h3>
+                <ul>
+                    <li>アプリを一度完全に終了してから再起動してください</li>
+                    <li>デバイスを再起動してください</li>
+                    <li>アプリを最新バージョンに更新してください</li>
+                </ul>
+
+                <h3>データが同期されない</h3>
+                <ul>
+                    <li>インターネット接続を確認してください</li>
+                    <li>アプリを再起動してください</li>
+                    <li>しばらく時間をおいてから再度お試しください</li>
+                </ul>
+
+                <h3>通知が届かない</h3>
+                <ul>
+                    <li>デバイスの通知設定を確認してください</li>
+                    <li>アプリ内の通知設定を確認してください</li>
+                    <li>バッテリー最適化設定を確認してください</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>📞 サポート・お問い合わせ</h2>
+                <div class="contact-info">
+                    <h3>お困りの際はお気軽にお問い合わせください</h3>
+                    <p><strong>📧 メール:</strong> <a href="mailto:support@outilog.app">support@outilog.app</a></p>
+                    <p><strong>🐛 バグ報告:</strong> <a href="mailto:bug@outilog.app">bug@outilog.app</a></p>
+                    <p><strong>💡 機能要望:</strong> <a href="mailto:feature@outilog.app">feature@outilog.app</a></p>
+                    <p><strong>⏰ 対応時間:</strong> 平日 9:00-18:00（土日祝日を除く）</p>
+                    <p><strong>📱 対応OS:</strong> iOS 12.0以上、Android 6.0以上</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📋 利用規約・プライバシーポリシー</h2>
+                <p>おうちログをご利用いただく前に、以下の内容をご確認ください：</p>
+                <ul>
+                    <li><a href="#" onclick="alert('利用規約ページに移動します')">利用規約</a></li>
+                    <li><a href="#" onclick="alert('プライバシーポリシーページに移動します')">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 おうちログ開発チーム. All rights reserved.</p>
+            <p>このページは Firebase Functions でホストされています</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const isOpen = answer.classList.contains('show');
+            
+            // すべてのFAQを閉じる
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                item.classList.remove('show');
+            });
+            
+            // クリックされたFAQを開く（既に開いていた場合は閉じる）
+            if (!isOpen) {
+                answer.classList.add('show');
+            }
+        }
+
+        // ページ読み込み時のアニメーション
+        document.addEventListener('DOMContentLoaded', function() {
+            const content = document.querySelector('.content');
+            content.style.opacity = '0';
+            content.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                content.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                content.style.opacity = '1';
+                content.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
