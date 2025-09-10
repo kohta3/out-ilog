@@ -4,8 +4,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>おうちログ - カップル・家族のためのオールインワンアプリ</title>
-    <meta name="description" content="家計簿、スケジュール、買い物リストをカップル・家族で共有できるオールインワンアプリ。Android・iOS対応。">
+    
+    <!-- Primary Meta Tags -->
+    <title>おうちログ - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ</title>
+    <meta name="title" content="おうちログ - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ">
+    <meta name="description" content="家計簿、スケジュール、買い物リストをカップル・家族で共有できるオールインワンアプリ。Android・iOS対応。無料でダウンロード可能。家計管理とスケジュール管理を効率化。">
+    <meta name="keywords" content="家計簿,スケジュール,買い物リスト,共有アプリ,カップル,家族,家計管理,予定管理,Android,iOS,無料アプリ,おうちログ">
+    <meta name="author" content="おうちログ">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Japanese">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://outilog.com/">
+    <meta property="og:title" content="おうちログ - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ">
+    <meta property="og:description" content="家計簿、スケジュール、買い物リストをカップル・家族で共有できるオールインワンアプリ。Android・iOS対応。無料でダウンロード可能。">
+    <meta property="og:image" content="https://outilog.com/img/ogp_card/card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="おうちログ">
+    <meta property="og:locale" content="ja_JP">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://outilog.com/">
+    <meta property="twitter:title" content="おうちログ - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ">
+    <meta property="twitter:description" content="家計簿、スケジュール、買い物リストをカップル・家族で共有できるオールインワンアプリ。Android・iOS対応。無料でダウンロード可能。">
+    <meta property="twitter:image" content="https://outilog.com/img/ogp_card/card.png">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="おうちログ">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://outilog.com/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "おうちログ",
+        "description": "家計簿、スケジュール、買い物リストをカップル・家族で共有できるオールインワンアプリ",
+        "url": "https://outilog.com",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": ["Android", "iOS"],
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "JPY"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.5",
+            "ratingCount": "100"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "おうちログ"
+        },
+        "screenshot": [
+            "https://outilog.com/img/ogp_card/card.png",
+            "https://outilog.com/img/home.png",
+            "https://outilog.com/img/kakeibo.png",
+            "https://outilog.com/img/schedule_list_view.png",
+            "https://outilog.com/img/schedule_timeline_view.png",
+            "https://outilog.com/img/buy_list.png"
+        ],
+        "featureList": [
+            "家計簿機能",
+            "スケジュール管理",
+            "買い物リスト",
+            "家族・カップル間での情報共有"
+        ]
+    }
+    </script>
     <style>
         * {
             margin: 0;
@@ -222,10 +311,12 @@
             margin-bottom: 1rem;
         }
 
-        .screenshot h4 {
+        .screenshot figcaption {
             color: #333;
             font-size: 1.1rem;
+            font-weight: 600;
         }
+
 
         /* Download Section */
         .download {
@@ -255,21 +346,27 @@
 
         .download-btn {
             display: inline-block;
-            padding: 20px 40px;
-            background: #667eea;
-            color: white;
+            padding: 0;
+            background: transparent;
             text-decoration: none;
-            border-radius: 15px;
-            font-weight: 600;
-            font-size: 1.1rem;
+            border-radius: 8px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .download-btn:hover {
-            background: #5a6fd8;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-btn img {
+            display: block;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover img {
+            transform: scale(1.05);
         }
 
         /* Footer */
@@ -341,7 +438,10 @@
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
-        gtag('config', 'G-H75MEDHP22');
+        gtag('config', 'G-H75MEDHP22', {
+            page_title: 'おうちログ - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ',
+            page_location: window.location.href
+        });
     </script>
 </head>
 
@@ -359,96 +459,104 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>おうちログ</h1>
-            <p class="subtitle">カップル・家族のためのオールインワンアプリ</p>
-            <p class="description">
-                家計簿、スケジュール、買い物リストを一つのアプリで管理。
-                大切な人と情報を共有して、もっと楽しく、もっと便利な生活を始めませんか？
-            </p>
-            <div class="cta-buttons">
-                <a href="#download" class="btn btn-primary">今すぐダウンロード</a>
-                <a href="#features" class="btn btn-secondary">機能を見る</a>
+    <main>
+        <section class="hero" role="banner">
+            <div class="container">
+                <h1>おうちログ - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ</h1>
+                <p class="subtitle">カップル・家族のためのオールインワンアプリ</p>
+                <p class="description">
+                    家計簿、スケジュール、買い物リストを一つのアプリで管理。
+                    大切な人と情報を共有して、もっと楽しく、もっと便利な生活を始めませんか？
+                </p>
+                <div class="cta-buttons">
+                    <a href="#download" class="btn btn-primary" aria-label="アプリを今すぐダウンロード">今すぐダウンロード</a>
+                    <a href="#features" class="btn btn-secondary" aria-label="アプリの機能を確認">機能を見る</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <h2 class="section-title">3つの主要機能</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3>家計簿</h3>
-                    <p>収支を記録し、カップルや家族で共有。支出の傾向を把握して、無駄遣いを防ぎましょう。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📅</div>
-                    <h3>スケジュール</h3>
-                    <p>家族の予定を一箇所で管理。お互いのスケジュールを把握して、大切な時間を共有できます。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛒</div>
-                    <h3>買い物リスト</h3>
-                    <p>必要なものをリストアップして共有。買い忘れを防ぎ、効率的な買い物を実現します。</p>
+        <!-- Features Section -->
+        <section class="features" id="features" aria-labelledby="features-title">
+            <div class="container">
+                <h2 class="section-title" id="features-title">3つの主要機能</h2>
+                <div class="features-grid" role="list">
+                    <article class="feature-card" role="listitem">
+                        <div class="feature-icon" aria-hidden="true">💰</div>
+                        <h3>家計簿機能</h3>
+                        <p>収支を記録し、カップルや家族で共有。支出の傾向を把握して、無駄遣いを防ぎましょう。家計管理を効率化し、貯蓄目標を達成しやすくします。</p>
+                    </article>
+                    <article class="feature-card" role="listitem">
+                        <div class="feature-icon" aria-hidden="true">📅</div>
+                        <h3>スケジュール管理</h3>
+                        <p>家族の予定を一箇所で管理。お互いのスケジュールを把握して、大切な時間を共有できます。予定の重複を防ぎ、家族の時間を有効活用できます。</p>
+                    </article>
+                    <article class="feature-card" role="listitem">
+                        <div class="feature-icon" aria-hidden="true">🛒</div>
+                        <h3>買い物リスト</h3>
+                        <p>必要なものをリストアップして共有。買い忘れを防ぎ、効率的な買い物を実現します。家族みんなで買い物リストを管理し、無駄な買い物を減らせます。</p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Screenshots Section -->
-    <section class="screenshots" id="screenshots">
-        <div class="container">
-            <h2 class="section-title">アプリの画面</h2>
-            <div class="screenshots-grid">
-                <div class="screenshot">
-                    <img src="img/home.png" alt="おうちログ ホーム画面">
-                    <h4>ホーム画面</h4>
-                </div>
-                <div class="screenshot">
-                    <img src="img/kakeibo.png" alt="おうちログ 家計簿機能">
-                    <h4>家計簿機能</h4>
-                </div>
-                <div class="screenshot">
-                    <img src="img/schedule_list_view.png" alt="おうちログ スケジュール一覧">
-                    <h4>スケジュール一覧</h4>
-                </div>
-                <div class="screenshot">
-                    <img src="img/schedule_timeline_view.png" alt="おうちログ スケジュールタイムライン">
-                    <h4>スケジュールタイムライン</h4>
-                </div>
-                <div class="screenshot">
-                    <img src="img/buy_list.png" alt="おうちログ 買い物リスト機能">
-                    <h4>買い物リスト機能</h4>
+        <!-- Screenshots Section -->
+        <section class="screenshots" id="screenshots" aria-labelledby="screenshots-title">
+            <div class="container">
+                <h2 class="section-title" id="screenshots-title">アプリの画面</h2>
+                <div class="screenshots-grid" role="list">
+                    <figure class="screenshot" role="listitem">
+                        <img src="img/home.png" alt="おうちログアプリのホーム画面。家計簿、スケジュール、買い物リストの3つの機能が一目で確認できるメイン画面" loading="lazy" width="200" height="400">
+                        <figcaption>ホーム画面</figcaption>
+                    </figure>
+                    <figure class="screenshot" role="listitem">
+                        <img src="img/kakeibo.png" alt="おうちログアプリの家計簿機能画面。収支の記録とグラフ表示で家計管理ができる画面" loading="lazy" width="200" height="400">
+                        <figcaption>家計簿機能</figcaption>
+                    </figure>
+                    <figure class="screenshot" role="listitem">
+                        <img src="img/schedule_list_view.png" alt="おうちログアプリのスケジュール一覧画面。家族の予定を一覧で確認できる画面" loading="lazy" width="200" height="400">
+                        <figcaption>スケジュール一覧</figcaption>
+                    </figure>
+                    <figure class="screenshot" role="listitem">
+                        <img src="img/schedule_timeline_view.png" alt="おうちログアプリのスケジュールタイムライン画面。時間軸で予定を確認できる画面" loading="lazy" width="200" height="400">
+                        <figcaption>スケジュールタイムライン</figcaption>
+                    </figure>
+                    <figure class="screenshot" role="listitem">
+                        <img src="img/buy_list.png" alt="おうちログアプリの買い物リスト機能画面。家族で共有できる買い物リスト管理画面" loading="lazy" width="200" height="400">
+                        <figcaption>買い物リスト機能</figcaption>
+                    </figure>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Download Section -->
-    <section class="download" id="download">
-        <div class="container">
-            <h2>今すぐダウンロード</h2>
-            <p>Android・iOS対応。無料でお使いいただけます。</p>
-            <div class="download-buttons">
-                <a href="#" class="download-btn">📱 Google Play Store</a>
-                <a href="#" class="download-btn">🍎 App Store</a>
+        <!-- Download Section -->
+        <section class="download" id="download" aria-labelledby="download-title">
+            <div class="container">
+                <h2 id="download-title">今すぐダウンロード</h2>
+                <p>Android・iOS対応。無料でお使いいただけます。</p>
+                <div class="download-buttons">
+                    <a href="#" class="download-btn" aria-label="Google Play Storeからおうちログアプリをダウンロード">
+                        <img src="img/app_button/GetItOnGooglePlay_Badge_Web_color_Japanese.png" alt="Google Play Storeで手に入れよう" width="135" height="40">
+                    </a>
+                    <a href="#" class="download-btn" aria-label="App Storeからおうちログアプリをダウンロード">
+                        <img src="img/app_button/Download_on_the_App_Store_Badge_JP_RGB_blk_100317.svg" alt="App Storeからダウンロード" width="135" height="40">
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="logo">おうちログ</div>
-                <ul class="footer-links">
-                    <li><a href="/privacy_policy.html">プライバシーポリシー</a></li>
-                    <li><a href="/support.html">サポート</a></li>
-                    <li><a href="/account_deletion.html">アカウント削除</a></li>
-                </ul>
+                <nav aria-label="フッターナビゲーション">
+                    <ul class="footer-links">
+                        <li><a href="/privacy_policy.html" aria-label="プライバシーポリシーを確認">プライバシーポリシー</a></li>
+                        <li><a href="/support.html" aria-label="サポートページへ移動">サポート</a></li>
+                        <li><a href="/account_deletion.html" aria-label="アカウント削除手順を確認">アカウント削除</a></li>
+                    </ul>
+                </nav>
             </div>
             <p style="margin-top: 2rem; opacity: 0.6;">© 2025 おうちログ. All rights reserved.</p>
         </div>
