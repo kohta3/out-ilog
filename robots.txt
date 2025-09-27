@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://out-ilog.com/sitemap.xml
+Sitemap: https://outilog.com/sitemap.xml
 
 # Disallow specific paths if needed
 # Disallow: /admin/
