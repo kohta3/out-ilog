@@ -18,11 +18,17 @@
         if (userAgent.includes('Android')) {
             deviceType = 'Android';
             platform = 'mobile';
-            window.location.href = 'https://play.google.com/store/apps/details?id=com.prod.outilog';
+            window.location.href = 'outilog://';
+            setTimeout(function() {
+                window.location.href = 'https://play.google.com/store/apps/details?id=com.prod.outilog';
+            }, 1500);
         } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
             deviceType = userAgent.includes('iPad') ? 'iPad' : 'iPhone';
             platform = userAgent.includes('iPad') ? 'tablet' : 'mobile';
-            window.location.href = 'https://apps.apple.com/us/app/%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163';
+            window.location.href = 'outilog://';
+            setTimeout(function() {
+                window.location.href = 'https://apps.apple.com/us/app/%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163';
+            }, 1500);
         } else {
             deviceType = 'Desktop';
             platform = 'desktop';
