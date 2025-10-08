@@ -4,18 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>おうちログ - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ</title>
+    <meta name="mobile-web-app-capable" content="yes">
     <script>
         // 端末によって遷移先を変える
         const userAgent = navigator.userAgent;
 
         console.log(userAgent);
+        
+        // 端末情報を取得
+        let deviceType = 'unknown';
+        let platform = 'unknown';
+        
         if (userAgent.includes('Android')) {
+            deviceType = 'Android';
+            platform = 'mobile';
             window.location.href = 'https://play.google.com/store/apps/details?id=com.prod.outilog';
         } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
+            deviceType = userAgent.includes('iPad') ? 'iPad' : 'iPhone';
+            platform = userAgent.includes('iPad') ? 'tablet' : 'mobile';
             window.location.href = 'https://apps.apple.com/us/app/%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163';
         } else {
+            deviceType = 'Desktop';
+            platform = 'desktop';
             window.location.href = 'https://outilog.com/';
         }
+
+        // GAで端末情報を記録
+        gtag('config', 'G-H75MEDHP22', {
+            page_title: 'おうちログ - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ',
+            page_location: window.location.href
+        });
+
+        // 端末情報をGAイベントとして送信
+        gtag('event', 'device_detection', {
+            'device_type': deviceType,
+            'platform': platform,
+            'user_agent': userAgent,
+            'redirect_url': window.location.href
+        });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H75MEDHP22"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-H75MEDHP22');
     </script>
 </head>
 <body>
