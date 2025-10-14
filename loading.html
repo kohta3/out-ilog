@@ -6,55 +6,104 @@
     <title>おうちログ - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ</title>
     <meta name="mobile-web-app-capable" content="yes">
     <script>
-        // 端末によって遷移先を変える
-        const userAgent = navigator.userAgent;
-
-        console.log(userAgent);
-        
-        // 端末情報を取得
-        let deviceType = 'unknown';
-        let platform = 'unknown';
-        
-        if (userAgent.includes('Android')) {
-            deviceType = 'Android';
-            platform = 'mobile';
-            window.location.href = 'outilog://';
-            setTimeout(function() {
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.prod.outilog';
-            }, 1500);
-        } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
-            deviceType = userAgent.includes('iPad') ? 'iPad' : 'iPhone';
-            platform = userAgent.includes('iPad') ? 'tablet' : 'mobile';
-            window.location.href = 'outilog://';
-            setTimeout(function() {
-                window.location.href = 'https://apps.apple.com/us/app/%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163';
-            }, 1500);
-        } else {
-            deviceType = 'Desktop';
-            platform = 'desktop';
-            window.location.href = 'https://outilog.com/';
-        }
-
-        // GAで端末情報を記録
-        gtag('config', 'G-H75MEDHP22', {
-            page_title: 'おうちログ - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ',
-            page_location: window.location.href
-        });
-
-        // 端末情報をGAイベントとして送信
-        gtag('event', 'device_detection', {
-            'device_type': deviceType,
-            'platform': platform,
-            'user_agent': userAgent,
-            'redirect_url': window.location.href
-        });
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H75MEDHP22"></script>
-    <script>
+        // GA を最優先で初期化（キューに積めるように先出し）
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-        gtag('config', 'G-H75MEDHP22');
+        // ページビューは自動送信
+        gtag('config', 'G-H75MEDHP22', { send_page_view: true });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H75MEDHP22"></script>
+    <script>
+        // UTM / click-id を保持してリダイレクト先に引き継ぐ
+        function buildTrackingParams() {
+            const params = new URLSearchParams(window.location.search);
+            const keys = [
+                'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+                'gclid', 'gbraid', 'wbraid', 'fbclid', 'twclid', 'msclkid'
+            ];
+            const result = new URLSearchParams();
+            keys.forEach((k) => {
+                const v = params.get(k);
+                if (v) result.set(k, v);
+            });
+            return result;
+        }
+
+        function appendParams(baseUrl, params) {
+            if (!params || Array.from(params.keys()).length === 0) return baseUrl;
+            const url = new URL(baseUrl);
+            params.forEach((v, k) => url.searchParams.set(k, v));
+            return url.toString();
+        }
+
+        // 端末によって遷移先を変える（広告計測考慮）
+        const userAgent = navigator.userAgent;
+        let deviceType = 'unknown';
+        let platform = 'unknown';
+
+        const trackingParams = buildTrackingParams();
+
+        // 端末判定
+        if (userAgent.includes('Android')) {
+            deviceType = 'Android';
+            platform = 'mobile';
+        } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
+            deviceType = userAgent.includes('iPad') ? 'iPad' : 'iPhone';
+            platform = userAgent.includes('iPad') ? 'tablet' : 'mobile';
+        } else {
+            deviceType = 'Desktop';
+            platform = 'desktop';
+        }
+
+        // 計測イベント（beacon で即時送信、遷移に強い）
+        try {
+            gtag('event', 'ad_landing', {
+                device_type: deviceType,
+                platform: platform,
+                user_agent: userAgent,
+                page_location: window.location.href,
+                // 代表的な集客パラメータをそのまま計測に添付
+                utm_source: trackingParams.get('utm_source') || undefined,
+                utm_medium: trackingParams.get('utm_medium') || undefined,
+                utm_campaign: trackingParams.get('utm_campaign') || undefined,
+                utm_term: trackingParams.get('utm_term') || undefined,
+                utm_content: trackingParams.get('utm_content') || undefined,
+                gclid: trackingParams.get('gclid') || undefined,
+                gbraid: trackingParams.get('gbraid') || undefined,
+                wbraid: trackingParams.get('wbraid') || undefined,
+                fbclid: trackingParams.get('fbclid') || undefined,
+                transport_type: 'beacon'
+            });
+        } catch (e) {
+            // 送信失敗時も遷移は継続
+        }
+
+        // 遷移処理
+        (function redirect() {
+            // ディープリンク優先（モバイル）→ ストアへフォールバック（広告パラメータ付与）
+            if (platform === 'mobile' || platform === 'tablet') {
+                const playStore = appendParams('https://play.google.com/store/apps/details?id=com.prod.outilog', trackingParams);
+                const appStore = appendParams('https://apps.apple.com/us/app/%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163', trackingParams);
+
+                // ディープリンク試行
+                window.location.href = 'outilog://';
+
+                // アプリ未インストール時のフォールバック
+                setTimeout(function() {
+                    if (deviceType === 'Android') {
+                        window.location.href = playStore;
+                    } else {
+                        window.location.href = appStore;
+                    }
+                }, 1200);
+                return;
+            }
+
+            // デスクトップは Web へ（パラメータも維持）
+            const webUrl = appendParams('https://outilog.com/', trackingParams);
+            window.location.href = webUrl;
+        })();
     </script>
 </head>
 <body>
