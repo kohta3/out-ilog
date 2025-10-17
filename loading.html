@@ -1,124 +1,154 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>おうちログ - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ</title>
     <meta name="mobile-web-app-capable" content="yes">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H75MEDHP22"></script>
     <script>
-        // GA を最優先で初期化（キューに積めるように先出し）
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-        // ページビューは自動送信
-        gtag('config', 'G-H75MEDHP22', { send_page_view: true });
+        gtag('config', 'G-H75MEDHP22');
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H75MEDHP22"></script>
     <script>
-        // UTM / click-id を保持してリダイレクト先に引き継ぐ
-        function buildTrackingParams() {
-            const params = new URLSearchParams(window.location.search);
-            const keys = [
-                'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
-                'gclid', 'gbraid', 'wbraid', 'fbclid', 'twclid', 'msclkid'
-            ];
-            const result = new URLSearchParams();
-            keys.forEach((k) => {
-                const v = params.get(k);
-                if (v) result.set(k, v);
-            });
-            return result;
-        }
-
-        function appendParams(baseUrl, params) {
-            if (!params || Array.from(params.keys()).length === 0) return baseUrl;
-            const url = new URL(baseUrl);
-            params.forEach((v, k) => url.searchParams.set(k, v));
-            return url.toString();
-        }
-
-        // 端末によって遷移先を変える（広告計測考慮）
-        const userAgent = navigator.userAgent;
-        let deviceType = 'unknown';
-        let platform = 'unknown';
-
-        const trackingParams = buildTrackingParams();
-
-        // 端末判定
-        if (userAgent.includes('Android')) {
-            deviceType = 'Android';
-            platform = 'mobile';
-        } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
-            deviceType = userAgent.includes('iPad') ? 'iPad' : 'iPhone';
-            platform = userAgent.includes('iPad') ? 'tablet' : 'mobile';
-        } else {
-            deviceType = 'Desktop';
-            platform = 'desktop';
-        }
-
-        // 計測イベント（beacon で即時送信、遷移に強い）
         try {
-            gtag('event', 'ad_landing', {
-                device_type: deviceType,
-                platform: platform,
-                user_agent: userAgent,
-                page_location: window.location.href,
-                // 代表的な集客パラメータをそのまま計測に添付
-                utm_source: trackingParams.get('utm_source') || undefined,
-                utm_medium: trackingParams.get('utm_medium') || undefined,
-                utm_campaign: trackingParams.get('utm_campaign') || undefined,
-                utm_term: trackingParams.get('utm_term') || undefined,
-                utm_content: trackingParams.get('utm_content') || undefined,
-                gclid: trackingParams.get('gclid') || undefined,
-                gbraid: trackingParams.get('gbraid') || undefined,
-                wbraid: trackingParams.get('wbraid') || undefined,
-                fbclid: trackingParams.get('fbclid') || undefined,
-                transport_type: 'beacon'
-            });
-        } catch (e) {
-            // 送信失敗時も遷移は継続
-        }
+            // ① デバイスタイプを判定する関数
+            function getDeviceType() {
+                const userAgent = navigator.userAgent;
 
-        // 遷移処理
-        (function redirect() {
-            // ディープリンク優先（モバイル）→ ストアへフォールバック（広告パラメータ付与）
-            if (platform === 'mobile' || platform === 'tablet') {
-                const playStore = appendParams('https://play.google.com/store/apps/details?id=com.prod.outilog', trackingParams);
-                const appStore = appendParams('https://apps.apple.com/us/app/%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163', trackingParams);
-
-                // ディープリンク試行
-                window.location.href = 'outilog://';
-
-                // アプリ未インストール時のフォールバック
-                setTimeout(function() {
-                    if (deviceType === 'Android') {
-                        window.location.href = playStore;
-                    } else {
-                        window.location.href = appStore;
-                    }
-                }, 1200);
-                return;
+                // iOS判定
+                if (/iPhone|iPad|iPod/i.test(userAgent)) {
+                    return 'iOS';
+                }
+                // Android判定
+                if (/Android/i.test(userAgent)) {
+                    return 'Android';
+                }
+                // その他のモバイル
+                if (/Mobile|Windows.*Phone/i.test(userAgent)) {
+                    return 'Mobile';
+                }
+                // PC
+                return 'PC';
             }
 
-            // デスクトップは Web へ（パラメータも維持）
-            const webUrl = appendParams('https://outilog.com/', trackingParams);
-            window.location.href = webUrl;
-        })();
+            // ② 送信する情報を取得
+            const pageReferrer = document.referrer;
+            const deviceCategory = getDeviceType();
+
+            // ③ GA4にカスタムイベントを送信
+            gtag('event', 'page_info', {
+                'page_referrer': pageReferrer || 'direct', // リファラーが空の場合は 'direct' を送信
+                'device_category': deviceCategory
+            });
+
+        } catch (e) {
+            console.error('GA4 custom event error:', e);
+        }
     </script>
 </head>
+
 <body>
-    // circle indicator
-    <div class="circle-indicator">
-        <div class="circle"></div>
+    <div class="loading-container">
+        <div class="content">
+            <img src="img/icon.jpg" alt="おうちログ" class="app-icon">
+            <h1 class="app-title">おうちログ</h1>
+            <p class="app-description">おうちログはスケジュール、家計簿、買い物リストを一括管理できるアプリです。</p>
+        </div>
+        <div class="circle-indicator">
+            <div class="circle"></div>
+        </div>
+        <p class="loading-text">アプリダウンロードページに遷移します...</p>
     </div>
+
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-container {
+            text-align: center;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .content {
+            margin-bottom: 40px;
+        }
+
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .app-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0 0 16px 0;
+        }
+
+        .app-description {
+            font-size: 16px;
+            color: #5a6c7d;
+            line-height: 1.5;
+            margin: 0;
+        }
+
         .circle-indicator {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: relative;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+        }
+
+        .circle {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #e3f2fd;
+            border-top: 3px solid #2196f3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // android,iosのアプリ画面に遷移する処理
+            setTimeout(() => {
+                if (navigator.userAgent.includes('Android')) {
+                    window.location.href = 'https://play.google.com/store/apps/details?id=com.prod.outilog';
+                } else if (navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad') || navigator.userAgent.includes('iPod')) {
+                    window.location.href = 'https://apps.apple.com/us/app/%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            }, 3000);
+        });
+    </script>
 </body>
+
 </html>
