@@ -95,352 +95,9 @@
         ]
     }
     </script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Hiragino Sans', 'ヒラギノ角ゴシック', 'Yu Gothic', '游ゴシック', 'Meiryo', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #667eea;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #667eea;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 120px 0 80px;
-            text-align: center;
-            color: white;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero .subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .hero .description {
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0.8;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .btn-primary {
-            background: #ff6b6b;
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-        }
-
-        .btn-primary:hover {
-            background: #ff5252;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: #667eea;
-            transform: translateY(-2px);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 2rem;
-            border-radius: 20px;
-            background: #f8f9ff;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .feature-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Screenshots Section */
-        .screenshots {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
-
-        .screenshots-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .screenshot {
-            text-align: center;
-            background: white;
-            border-radius: 20px;
-            padding: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .screenshot:hover {
-            transform: scale(1.05);
-        }
-
-        .screenshot img {
-            width: 100%;
-            max-width: 200px;
-            height: auto;
-            border-radius: 15px;
-            margin-bottom: 1rem;
-        }
-
-        .screenshot figcaption {
-            color: #333;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-
-        /* Download Section */
-        .download {
-            padding: 80px 0;
-            background: #333;
-            color: white;
-            text-align: center;
-        }
-
-        .download h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .download p {
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            opacity: 0.8;
-        }
-
-        .download-buttons {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            display: inline-block;
-            padding: 0;
-            background: transparent;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .download-btn img {
-            display: block;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .download-btn:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Footer */
-        footer {
-            background: #222;
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .footer-links a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .download-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-    </style>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/index.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H75MEDHP22"></script>
     <script>
@@ -457,98 +114,165 @@
 
 <body>
     <!-- Header -->
-    <header>
-        <nav class="container">
-            <div class="logo"><img src="img/icon.jpg" alt="おうちログ" width="100" height="100">おうちログ</div>
-            <ul class="nav-links">
-                <li><a href="#features">機能</a></li>
-                <li><a href="#screenshots">スクリーンショット</a></li>
-                <li><a href="#download">ダウンロード</a></li>
-            </ul>
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="img/icon.jpg" alt="おうちログ" width="40" height="40" class="me-2">
+                    おうちログ
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">おうちログについて</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#download">ダウンロード</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="support.html">お問い合わせ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
-
-    <!-- Hero Section -->
     <main>
-        <section class="hero" role="banner">
-            <div class="container">
-                <h1>おうちログ<br> - カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ</h1>
-                <p class="subtitle">カップル・家族のためのオールインワンアプリ</p>
-                <p class="description">
-                    家計簿、スケジュール、買い物リストを一つのアプリで管理。
-                    大切な人と情報を共有して、もっと楽しく、もっと便利な生活を始めませんか？
-                </p>
-                <div class="cta-buttons">
-                    <a href="#download" class="btn btn-primary" aria-label="アプリを今すぐダウンロード">今すぐダウンロード</a>
-                    <a href="#features" class="btn btn-secondary" aria-label="アプリの機能を確認">機能を見る</a>
+        <section class="section1">
+            <div class="section1-image">
+                <div class="section1-image-div section1-image-1">
+                    <img src="img/mobile_screen/2.png" alt="おうちログ" class="section1-image-img">
+                    <img src="img/bear/date.png" alt="くまさんず" class="section1-image1-bear-img">
+                </div>
+                <div class="section1-image-div section1-image-2">
+                    <img src="img/mobile_screen/3.png" alt="おうちログ" class="section1-image-img">
+                    <img src="img/bear/money.png" alt="くまさんず" class="section1-image2-bear-img">
+                </div>
+                <div class="section1-image-div section1-image-3">
+                    <img src="img/mobile_screen/5.png" alt="おうちログ" class="section1-image-img">
+                    <img src="img/bear/market.png" alt="くまさんず" class="section1-image3-bear-img">
                 </div>
             </div>
+            <div class="section1-app-link">
+                <a href="https://play.google.com/store/apps/details?id=com.prod.outilog" class="section1-app-link-item">
+                    <img src="img/app_button/GetItOnGooglePlay_Badge_Web_color_Japanese.png" alt="Google Play" class="section1-app-link-item-img">
+                </a>
+                <a href="https://apps.apple.com/us/app/%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163" class="section1-app-link-item">
+                    <img src="img/app_button/Download_on_the_App_Store_Badge_JP_RGB_blk_100317.svg" alt="Apple App Store" class="section1-app-link-item-img">
+                </a>
+            </div>
         </section>
-
         <!-- Features Section -->
-        <section class="features" id="features" aria-labelledby="features-title">
+        <section class="features-section">
             <div class="container">
-                <h2 class="section-title" id="features-title">3つの主要機能</h2>
-                <div class="features-grid" role="list">
-                    <article class="feature-card" role="listitem">
-                        <div class="feature-icon" aria-hidden="true">💰</div>
-                        <h3>家計簿機能</h3>
-                        <p>収支を記録し、カップルや家族で共有。支出の傾向を把握して、無駄遣いを防ぎましょう。家計管理を効率化し、貯蓄目標を達成しやすくします。</p>
-                    </article>
-                    <article class="feature-card" role="listitem">
-                        <div class="feature-icon" aria-hidden="true">📅</div>
-                        <h3>スケジュール管理</h3>
-                        <p>家族の予定を一箇所で管理。お互いのスケジュールを把握して、大切な時間を共有できます。予定の重複を防ぎ、家族の時間を有効活用できます。</p>
-                    </article>
-                    <article class="feature-card" role="listitem">
-                        <div class="feature-icon" aria-hidden="true">🛒</div>
-                        <h3>買い物リスト</h3>
-                        <p>必要なものをリストアップして共有。買い忘れを防ぎ、効率的な買い物を実現します。家族みんなで買い物リストを管理し、無駄な買い物を減らせます。</p>
-                    </article>
+                <!-- 上段 -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="feature-item">
+                            <div class="feature-screenshot">
+                                <img src="img/mobile_screen/2.png" alt="スケジュール管理" class="feature-img">
+                            </div>
+                            <div class="feature-content">
+                                <h3>スケジュール管理</h3>
+                                <p>家族やカップルの予定を共有し、カレンダーで一目で確認できます。重要なイベントを忘れずに管理しましょう。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="feature-item">
+                            <div class="feature-screenshot">
+                                <img src="img/mobile_screen/3.png" alt="家計簿機能" class="feature-img">
+                            </div>
+                            <div class="feature-content">
+                                <h3>家計簿機能</h3>
+                                <p>収支を家族で共有管理し、カテゴリ別の支出分析や月次・年次の家計レポートを確認できます。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 下段 -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="feature-item">
+                            <div class="feature-screenshot">
+                                <img src="img/mobile_screen/5.png" alt="買い物リスト" class="feature-img">
+                            </div>
+                            <div class="feature-content">
+                                <h3>買い物リスト</h3>
+                                <p>家族で共有できる買い物リストで、必要なものを忘れずに購入できます。リアルタイムで更新されるので、重複購入を防げます。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="feature-item">
+                            <div class="feature-screenshot">
+                                <img src="img/mobile_screen/6.png" alt="家族共有" class="feature-img">
+                            </div>
+                            <div class="feature-content">
+                                <h3>家族・カップル共有</h3>
+                                <p>すべての機能が家族やカップル間でリアルタイム共有。離れていても一緒に家計管理ができます。</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Screenshots Section -->
-        <section class="screenshots" id="screenshots" aria-labelledby="screenshots-title">
+        <!-- Recipe Section -->
+        <section class="recipe-section">
             <div class="container">
-                <h2 class="section-title" id="screenshots-title">アプリの画面</h2>
-                <div class="screenshots-grid" role="list">
-                    <figure class="screenshot" role="listitem">
-                        <img src="img/home.png" alt="おうちログアプリのホーム画面。家計簿、スケジュール、買い物リストの3つの機能が一目で確認できるメイン画面" loading="lazy" width="200" height="400">
-                        <figcaption>ホーム画面</figcaption>
-                    </figure>
-                    <figure class="screenshot" role="listitem">
-                        <img src="img/kakeibo.png" alt="おうちログアプリの家計簿機能画面。収支の記録とグラフ表示で家計管理ができる画面" loading="lazy" width="200" height="400">
-                        <figcaption>家計簿機能</figcaption>
-                    </figure>
-                    <figure class="screenshot" role="listitem">
-                        <img src="img/schedule_list_view.png" alt="おうちログアプリのスケジュール一覧画面。家族の予定を一覧で確認できる画面" loading="lazy" width="200" height="400">
-                        <figcaption>スケジュール一覧</figcaption>
-                    </figure>
-                    <figure class="screenshot" role="listitem">
-                        <img src="img/schedule_timeline_view.png" alt="おうちログアプリのスケジュールタイムライン画面。時間軸で予定を確認できる画面" loading="lazy" width="200" height="400">
-                        <figcaption>スケジュールタイムライン</figcaption>
-                    </figure>
-                    <figure class="screenshot" role="listitem">
-                        <img src="img/buy_list.png" alt="おうちログアプリの買い物リスト機能画面。家族で共有できる買い物リスト管理画面" loading="lazy" width="200" height="400">
-                        <figcaption>買い物リスト機能</figcaption>
-                    </figure>
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="recipe-title">レシピ機能</h2>
+                        <p class="recipe-subtitle">お気に入りのレシピを見つけて、必要な材料を買い物リストに追加</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="recipe-flow">
+                            <div class="recipe-step">
+                                <div class="recipe-img-container">
+                                    <img src="img/mobile_screen/6.png" alt="レシピ検索" class="recipe-img">
+                                </div>
+                                <h4>1. レシピを検索</h4>
+                                <p>豊富なレシピデータベースから、お好みの料理を検索できます。</p>
+                            </div>
+                            <div class="recipe-arrow">→</div>
+                            <div class="recipe-step">
+                                <div class="recipe-img-container">
+                                    <img src="img/mobile_screen/7.png" alt="レシピ詳細" class="recipe-img">
+                                </div>
+                                <h4>2. レシピを確認</h4>
+                                <p>材料や調理手順を確認し、お気に入りに保存できます。</p>
+                            </div>
+                            <div class="recipe-arrow">→</div>
+                            <div class="recipe-step">
+                                <div class="recipe-img-container">
+                                    <img src="img/mobile_screen/5.png" alt="買い物リスト追加" class="recipe-img">
+                                </div>
+                                <h4>3. 材料を追加</h4>
+                                <p>必要な材料をワンタップで買い物リストに追加できます。</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Download Section -->
-        <section class="download" id="download" aria-labelledby="download-title">
-            <div class="container">
-                <h2 id="download-title">今すぐダウンロード</h2>
-                <p>Android・iOS対応。無料でお使いいただけます。</p>
+        <section class="download-section">
+            <div class="container text-center">
+                <h2 class="download-title">今すぐダウンロード</h2>
+                <p class="download-subtitle">Android・iOS対応。無料でダウンロード可能です。</p>
                 <div class="download-buttons">
-                    <a href="#" class="download-btn" aria-label="Google Play Storeからおうちログアプリをダウンロード">
-                        <img src="img/app_button/GetItOnGooglePlay_Badge_Web_color_Japanese.png" alt="Google Play Storeで手に入れよう" width="135" height="40">
+                    <a href="https://play.google.com/store/apps/details?id=com.prod.outilog" class="download-button">
+                        <img src="img/app_button/GetItOnGooglePlay_Badge_Web_color_Japanese.png" alt="Google Play" class="download-button-img">
                     </a>
-                    <a href="#" class="download-btn" aria-label="App Storeからおうちログアプリをダウンロード">
-                        <img src="img/app_button/Download_on_the_App_Store_Badge_JP_RGB_blk_100317.svg" alt="App Storeからダウンロード" width="135" height="40">
+                    <a href="https://apps.apple.com/us/app/%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163" class="download-button">
+                        <img src="img/app_button/Download_on_the_App_Store_Badge_JP_RGB_blk_100317.svg" alt="Apple App Store" class="download-button-img">
                     </a>
                 </div>
             </div>
@@ -556,47 +280,32 @@
     </main>
 
     <!-- Footer -->
-    <footer role="contentinfo">
+    <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="logo">おうちログ</div>
-                <nav aria-label="フッターナビゲーション">
-                    <ul class="footer-links">
-                        <li><a href="/privacy_policy.html" aria-label="プライバシーポリシーを確認">プライバシーポリシー</a></li>
-                        <li><a href="/support.html" aria-label="サポートページへ移動">サポート</a></li>
-                        <li><a href="/account_deletion.html" aria-label="アカウント削除手順を確認">アカウント削除</a></li>
-                    </ul>
-                </nav>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="footer-brand">
+                        <img src="img/icon.jpg" alt="おうちログ" width="40" height="40" class="me-2">
+                        おうちログ
+                    </div>
+                    <p class="footer-text">カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="footer-links">
+                        <a href="privacy_policy.html" class="footer-link">プライバシーポリシー</a>
+                        <a href="support.html" class="footer-link">お問い合わせ</a>
+                    </div>
+                </div>
             </div>
-            <p style="margin-top: 2rem; opacity: 0.6;">© 2025 おうちログ. All rights reserved.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 おうちログ. All rights reserved.</p>
+            </div>
         </div>
     </footer>
-
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', function () {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-            }
-        });
-    </script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 
 </html>

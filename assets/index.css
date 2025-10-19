@@ -1,0 +1,552 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Hiragino Sans', 'ヒラギノ角ゴシック', 'Yu Gothic', '游ゴシック', 'Meiryo', 'メイリオ', sans-serif;
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #2c3e50 !important;
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.navbar-brand img {
+    border-radius: 8px;
+}
+
+.nav-link {
+    color: #2c3e50 !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.nav-link:hover {
+    color: #667eea !important;
+}
+
+/* Section1 */
+.section1 {
+    margin-top: 66px;
+    padding: 5px;
+    height: calc(100vh - 66px);
+    width: 100%;
+    background: linear-gradient(to right, #ffffff, #71cbd4);
+}
+
+.section1-image {
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.section1-image-div {
+    flex: 1;
+    min-width: 300px;
+    max-width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.section1-image-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.section1-image1-bear-img {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 180px;
+    object-fit: contain;
+}
+.section1-image2-bear-img {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    object-fit: contain;
+}
+.section1-image3-bear-img {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 100px;
+    object-fit: contain;
+}
+
+.section1-app-link {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.section1-app-link-item {
+        max-width: 50%;
+        height: 70%;
+}
+
+.section1-app-link-item > img {
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Download Section */
+.download-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.download-button {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.download-button:hover {
+    transform: scale(1.05);
+}
+
+.download-button-img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+}
+
+.features-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.features-section .row {
+    margin-bottom: 2rem;
+}
+
+.features-section .row:last-child {
+    margin-bottom: 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3rem;
+    height: 100%;
+}
+
+.feature-screenshot {
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.feature-img {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.feature-content h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-content p {
+    color: #7f8c8d;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+/* Recipe Section */
+.recipe-section {
+    padding: 80px 0;
+    background: linear-gradient(to right, #ffffff, #71cbd4);
+}
+
+.recipe-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.recipe-subtitle {
+    font-size: 1.2rem;
+    color: #34495e;
+    line-height: 1.6;
+}
+
+.recipe-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.recipe-step {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    text-align: center;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.recipe-step:hover {
+    transform: translateY(-5px);
+}
+
+.recipe-step h4 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin: 1rem 0 0.5rem 0;
+    font-weight: bold;
+}
+
+.recipe-step p {
+    color: #7f8c8d;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.recipe-img-container {
+    width: 200px;
+    height: 300px;
+    margin: 0 auto 1rem auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recipe-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+.recipe-arrow {
+    font-size: 2.5rem;
+    color: #667eea;
+    font-weight: bold;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    margin: 0 1rem;
+    transition: all 0.3s ease;
+}
+
+.recipe-arrow:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Download Section */
+.download-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.download-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.download-subtitle {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+}
+
+/* Footer */
+.footer {
+    background: #2c3e50;
+    color: white;
+    padding: 3rem 0 1rem;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.footer-brand img {
+    border-radius: 8px;
+}
+
+.footer-text {
+    color: #bdc3c7;
+    margin-bottom: 0;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+}
+
+.footer-link {
+    color: #bdc3c7;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: white;
+}
+
+.footer-bottom {
+    border-top: 1px solid #34495e;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    text-align: center;
+    color: #bdc3c7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .section1 {
+        height: calc(100vh - 66px);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 66px;
+    }
+    
+    .section1-image {
+        height: 80%;
+        padding: 0 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 300px;
+        position: relative;
+    }
+    
+    .section1-image-div {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+    }
+    
+    .section1-image-div:nth-child(1) {
+        width: 280px;
+        height: 420px;
+        z-index: 3;
+        left: 20%;
+        top: 10%;
+        transform: rotate(-15deg);
+    }
+    
+    .section1-image-div:nth-child(2) {
+        width: 300px;
+        height: 450px;
+        z-index: 2;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(5deg);
+    }
+    
+    .section1-image-div:nth-child(3) {
+        width: 280px;
+        height: 420px;
+        z-index: 1;
+        right: 20%;
+        top: 20%;
+        transform: rotate(10deg);
+    }
+    
+    .section1-image-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        max-height: 100%;
+    }
+    
+    .section1-image1-bear-img,
+    .section1-image2-bear-img,
+    .section1-image3-bear-img {
+        width: 60px;
+        max-height: 60px;
+        object-fit: contain;
+    }
+    
+    .section1-image1-bear-img {
+        bottom: 10px;
+        left: 10px;
+    }
+    
+    .section1-image2-bear-img {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .section1-image3-bear-img {
+        bottom: 10px;
+        left: 10px;
+    }
+    
+    .section1-app-link {
+        flex-direction: row;
+        gap: 0.8rem;
+        height: 20%;
+        margin-top: 0;
+        padding: 5px 10px;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .section1-app-link-item {
+        max-width: 140px;
+        height: 40px;
+    }
+    
+    .feature-item {
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+    }
+    
+    .feature-img {
+        width: 120px;
+        margin-bottom: 1rem;
+    }
+    
+    .download-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .download-button-img {
+        height: 50px;
+    }
+    
+    .footer-links {
+        justify-content: center;
+        margin-top: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .download-title {
+        font-size: 2rem;
+    }
+    
+    .recipe-title {
+        font-size: 2rem;
+    }
+    
+    .recipe-flow {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .recipe-step {
+        min-width: 100%;
+        max-width: 100%;
+        padding: 1.5rem;
+    }
+    
+    .recipe-img-container {
+        width: 150px;
+        height: 200px;
+    }
+    
+    .recipe-img {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .recipe-arrow {
+        transform: rotate(90deg);
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .section1-image {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .section1-image-div {
+        width: 100%;
+        height: 400px;
+    }
+    
+    .section1-image-img {
+        width: 250px;
+        height: 400px;
+        object-fit: contain;
+    }
+    
+    .feature-item {
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .feature-img {
+        width: 140px;
+        margin-bottom: 1rem;
+    }
+}
