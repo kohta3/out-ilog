@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>メール認証 - おうちログ</title>
+    <meta name="title" content="メール認証 - おうちログ">
+    <meta name="description" content="おうちログのメール認証ページ">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="../img/icon.jpg">
+    <link rel="apple-touch-icon" href="../img/icon.jpg">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/index.css">
+    
+    <style>
+        .verification-container {
+            min-height: calc(100vh - 66px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            margin-top: 66px;
+            background: linear-gradient(to right, #ffffff, #71cbd4);
+        }
+        
+        .verification-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .verification-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        
+        .verification-icon.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .verification-icon.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .verification-icon.loading {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .verification-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .verification-message {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .verification-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .verification-button:hover {
+            background: #5568d3;
+            color: white;
+        }
+        
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border-width: 0.3em;
+        }
+        
+        .brand-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            text-decoration: none;
+            color: #2c3e50;
+        }
+        
+        .brand-link img {
+            border-radius: 8px;
+        }
+        
+        .brand-link:hover {
+            color: #667eea;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../img/icon.jpg" alt="おうちログ" width="40" height="40" class="me-2">
+                    おうちログ
+                </a>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="verification-container">
+            <div class="verification-card">
+                <a href="../index.html" class="brand-link">
+                    <img src="../img/icon.jpg" alt="おうちログ" width="40" height="40">
+                    <span style="font-weight: bold; font-size: 1.5rem;">おうちログ</span>
+                </a>
+                
+                <!-- Loading State -->
+                <div id="loadingState">
+                    <div class="verification-icon loading">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">読み込み中...</span>
+                        </div>
+                    </div>
+                    <h2 class="verification-title">メール認証を処理中...</h2>
+                    <p class="verification-message">しばらくお待ちください</p>
+                </div>
+                
+                <!-- Success State -->
+                <div id="successState" style="display: none;">
+                    <div class="verification-icon success">
+                        ✓
+                    </div>
+                    <h2 class="verification-title">メール認証が完了しました</h2>
+                    <p class="verification-message">
+                        ご登録ありがとうございます。メールアドレスの認証が正常に完了しました。<br>
+                        アプリに戻ってログインしてください。
+                    </p>
+                    <a href="../index.html" class="verification-button">ホームに戻る</a>
+                </div>
+                
+                <!-- Error State -->
+                <div id="errorState" style="display: none;">
+                    <div class="verification-icon error">
+                        ✕
+                    </div>
+                    <h2 class="verification-title">メール認証に失敗しました</h2>
+                    <p class="verification-message" id="errorMessage">
+                        認証リンクが無効または期限切れです。<br>
+                        新しい認証メールを再送信してください。
+                    </p>
+                    <a href="../index.html" class="verification-button">ホームに戻る</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="footer-brand">
+                        <img src="../img/icon.jpg" alt="おうちログ" width="40" height="40" class="me-2">
+                        おうちログ
+                    </div>
+                    <p class="footer-text">カップル・家族のための家計簿・スケジュール・買い物リスト共有アプリ</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="footer-links">
+                        <a href="../privacy_policy.html" class="footer-link">プライバシーポリシー</a>
+                        <a href="../support.html" class="footer-link">お問い合わせ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 おうちログ. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Firebase SDKのインポート
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, applyActionCode } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        
+        // 1. コードの受け取り: URLパラメータからoobCode（アクションコード）を取得
+        const urlParams = new URLSearchParams(window.location.search);
+        const mode = urlParams.get('mode');
+        const oobCode = urlParams.get('oobCode');
+        const continueUrl = urlParams.get('continueUrl') || '../index.html';
+        const apiKey = urlParams.get('apiKey');
+        
+        // Firebase設定（URLパラメータから取得、またはデフォルト値を使用）
+        // 注意: 実際のプロジェクトの設定値に置き換えてください
+        // Firebase Authenticationのメール認証リンクには通常、apiKeyが含まれています
+        const firebaseConfig = {
+            apiKey: apiKey || "YOUR_API_KEY", // URLパラメータから取得、なければデフォルト値
+            authDomain: urlParams.get('authDomain') || "YOUR_AUTH_DOMAIN",
+            projectId: urlParams.get('projectId') || "YOUR_PROJECT_ID"
+        };
+        
+        // Firebase初期化
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        
+        // 2. コードの実行: applyActionCode()を使ってメール認証を実行
+        async function handleEmailVerification() {
+            const loadingState = document.getElementById('loadingState');
+            const successState = document.getElementById('successState');
+            const errorState = document.getElementById('errorState');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            try {
+                // メール認証の場合
+                if (mode === 'verifyEmail' && oobCode) {
+                    // Firebase SDKのapplyActionCode()を使用してメール認証を完了
+                    await applyActionCode(auth, oobCode);
+                    
+                    // 3. 結果の表示: 認証成功
+                    loadingState.style.display = 'none';
+                    successState.style.display = 'block';
+                } else if (mode === 'resetPassword' && oobCode) {
+                    // パスワードリセットの場合は、リセットページにリダイレクト
+                    window.location.href = `resetPassword.html?mode=${mode}&oobCode=${oobCode}&apiKey=${apiKey}`;
+                    return;
+                } else {
+                    // パラメータが不足している場合
+                    throw new Error('認証リンクが無効です');
+                }
+            } catch (error) {
+                // 3. 結果の表示: 認証失敗
+                console.error('認証エラー:', error);
+                loadingState.style.display = 'none';
+                errorState.style.display = 'block';
+                
+                // エラーメッセージを設定
+                let errorMsg = '認証処理中にエラーが発生しました。';
+                
+                if (error.code === 'auth/expired-action-code') {
+                    errorMsg = '認証リンクの有効期限が切れています。新しい認証メールを再送信してください。';
+                } else if (error.code === 'auth/invalid-action-code') {
+                    errorMsg = '認証リンクが無効です。新しい認証メールを再送信してください。';
+                } else if (error.code === 'auth/user-disabled') {
+                    errorMsg = 'このアカウントは無効化されています。サポートにお問い合わせください。';
+                } else if (error.message) {
+                    errorMsg = error.message;
+                }
+                
+                errorMessage.textContent = errorMsg;
+            }
+        }
+        
+        // ページ読み込み時に認証処理を実行
+        if (mode && oobCode) {
+            handleEmailVerification();
+        } else {
+            // パラメータがない場合はエラーを表示
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+            document.getElementById('errorMessage').textContent = '認証リンクが正しくありません。メールに記載されているリンクを確認してください。';
+        }
+    </script>
+</body>
+
+</html>
+
