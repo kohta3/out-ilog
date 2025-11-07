@@ -16,12 +16,26 @@
     <link rel="apple-touch-icon" href="../img/icon.jpg">
     
     <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/index.css">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H75MEDHP22"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-H75MEDHP22', {
+            page_title: 'メール認証 - おうちログ',
+            page_location: window.location.href
+        });
+    </script>
     
     <style>
         .verification-container {
@@ -336,6 +350,14 @@
                     loadingState.style.display = 'none';
                     successState.style.display = 'block';
                     
+                    // Google Analytics: 認証成功イベントを計測
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'email_verification_success', {
+                            event_category: 'Authentication',
+                            event_label: 'Email Verification'
+                        });
+                    }
+                    
                     // 一呼吸おいてからディープリンクでアプリに遷移
                     redirectToApp();
                 } else if (mode === 'resetPassword' && oobCode) {
@@ -354,18 +376,31 @@
                 
                 // エラーメッセージを設定
                 let errorMsg = '認証処理中にエラーが発生しました。';
+                let errorCode = 'unknown';
                 
                 if (error.code === 'auth/expired-action-code') {
                     errorMsg = '認証リンクの有効期限が切れています。新しい認証メールを再送信してください。';
+                    errorCode = 'expired';
                 } else if (error.code === 'auth/invalid-action-code') {
                     errorMsg = '認証リンクが無効です。新しい認証メールを再送信してください。';
+                    errorCode = 'invalid';
                 } else if (error.code === 'auth/user-disabled') {
                     errorMsg = 'このアカウントは無効化されています。サポートにお問い合わせください。';
+                    errorCode = 'user_disabled';
                 } else if (error.message) {
                     errorMsg = error.message;
                 }
                 
                 errorMessage.textContent = errorMsg;
+                
+                // Google Analytics: 認証失敗イベントを計測
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'email_verification_failure', {
+                        event_category: 'Authentication',
+                        event_label: 'Email Verification',
+                        error_code: errorCode
+                    });
+                }
             }
         }
         
@@ -377,6 +412,14 @@
             document.getElementById('loadingState').style.display = 'none';
             document.getElementById('errorState').style.display = 'block';
             document.getElementById('errorMessage').textContent = '認証リンクが正しくありません。メールに記載されているリンクを確認してください。';
+            
+            // Google Analytics: パラメータ不足イベントを計測
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'email_verification_error', {
+                    event_category: 'Authentication',
+                    event_label: 'Missing Parameters'
+                });
+            }
         }
     </script>
 </body>
