@@ -324,6 +324,7 @@
         <!-- フォームコンテナ -->
         <div class="form-container" id="formContainer">
             <form id="resetPasswordForm">
+                <input type="hidden" id="email" name="email">
                 <div class="mb-3">
                     <label for="newPassword" class="form-label">変更後のパスワード</label>
                     <div class="password-toggle">
@@ -389,6 +390,7 @@
         document.addEventListener("DOMContentLoaded", async () => {
             let newPassChk = false;
             let confirmPassChk = false;
+            let lang = "ja";
 
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get("token");
@@ -433,14 +435,26 @@
                 // トークンが有効な場合のみフォーム表示
                 formContainer.classList.add("show");
 
-                // const resetPasswordForm = document.getElementById("resetPasswordForm");
-                // resetPasswordForm.addEventListener("submit", async (event) => {
-                //     event.preventDefault();
-                //     const newPassword = document.getElementById("newPassword").value;
-                //     const confirmPassword = document.getElementById("confirmPassword").value;
-                //     // 実際のパスワード変更処理はここに実装予定
-                //     console.log("submit clicked", newPassword, confirmPassword);
-                // });
+                const resetPasswordForm = document.getElementById("resetPasswordForm");
+                resetPasswordForm.addEventListener("submit", async (event) => {
+                    event.preventDefault();
+                    const email = document.getElementById("email").value;
+                    const newPassword = document.getElementById("newPassword").value;
+                    // https://changepassword-cugf7l7uea-uc.a.run.app
+                   const response = await fetch("https://changepassword-cugf7l7uea-uc.a.run.app", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({email, newPassword})
+                   });
+                   if (response.ok) {
+                    showAlert("パスワードが変更されました。", "success");
+                    } else {
+                        showAlert("エラーが発生しました。時間をおいて再度お試しください。", "danger");
+                    }
+                    return;
+                });
             } catch (e) {
                 console.error(e);
                 loadingContainer.classList.add("hide");
