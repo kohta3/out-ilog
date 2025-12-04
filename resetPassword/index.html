@@ -361,7 +361,12 @@
         document.addEventListener("DOMContentLoaded", async () => {
             const urlParams = new URLSearchParams(window.location.search);
             console.log(urlParams.get("token"));
-            const response = await fetch(`https://us-central1-outi-log.cloudfunctions.net/checkResetPageVisible?token=${urlParams.get("token")}`);
+            const response = await fetch.post(`https://us-central1-outi-log.cloudfunctions.net/checkResetPageVisible`, {
+                method: "POST",
+                body: JSON.stringify({
+                    token: urlParams.get("token")
+                })
+            });
             console.log(response);
 
             const loadingContainer = document.getElementById("loadingContainer");
