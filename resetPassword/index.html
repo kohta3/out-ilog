@@ -227,6 +227,28 @@
             margin-bottom: 0.25rem;
         }
 
+        .password-requirement::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            /* background-color: #87c8e4; */
+            border-radius: 50%;
+            border: 1px solid black;
+            transition: background 0.3s ease;
+        }
+
+        .password-requirement.success::before {
+            background: linear-gradient(135deg, #5ef78d 0%, #24c964 40%, #a8ffe3 75%, #1b8e2e 100%);
+            box-shadow: 0 0 6px 1px #a3ffcb77, 0 1px 8px 0 #49ffbe55 inset;
+        }
+
+        .password-requirement.validated::before {
+            background: linear-gradient(135deg, #ff9ca5 0%, #dc3545 35%, #ffdddd 70%, #b01d32 100%);
+            box-shadow: 0 0 8px 2px #ffc8c877, 0 1px 10px 0 #ff646455 inset;
+        }
+
+
         .loading-container {
             display: flex;
             flex-direction: column;
@@ -306,7 +328,7 @@
                     <label for="newPassword" class="form-label">変更後のパスワード</label>
                     <div class="password-toggle">
                         <input type="password" class="form-control" id="newPassword" name="newPassword"
-                            pattern="[A-Za-z0-9]+" required>
+                            pattern="[A-Za-z0-9]+" required oninput="validatePassword(this.value)">
                         <span class="password-toggle-icon" onclick="togglePassword('newPassword', this)">
                             <i class="bi bi-eye"></i>
                         </span>
@@ -317,7 +339,7 @@
                     <label for="confirmPassword" class="form-label">パスワード確認</label>
                     <div class="password-toggle">
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                            pattern="[A-Za-z0-9]+" required>
+                            pattern="[A-Za-z0-9]+" required oninput="validateConfirmPassword(this.value)">
                         <span class="password-toggle-icon" onclick="togglePassword('confirmPassword', this)">
                             <i class="bi bi-eye"></i>
                         </span>
@@ -328,17 +350,14 @@
                     <div class="password-requirement" id="reqLength">
                         <span>8文字以上</span>
                     </div>
-                    <div class="password-requirement" id="reqUppercase">
-                        <span>大文字を1文字以上</span>
-                    </div>
-                    <div class="password-requirement" id="reqLowercase">
-                        <span>小文字を1文字以上</span>
-                    </div>
-                    <div class="password-requirement" id="reqNumber">
-                        <span>数字を1文字以上</span>
+                    <div class="password-requirement" id="reqComplexity">
+                        <span>大文字・小文字・数字を1文字以上</span>
                     </div>
                     <div class="password-requirement" id="reqAlphanumeric">
-                        <span>英数字のみ（記号は使用不可）</span>
+                        <span>英数字のみ</span>
+                    </div>
+                    <div class="password-requirement" id="reqMatch">
+                        <span>パスワードの一致</span>
                     </div>
                 </div>
 
@@ -368,6 +387,9 @@
         }
 
         document.addEventListener("DOMContentLoaded", async () => {
+            let newPassChk = false;
+            let confirmPassChk = false;
+
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get("token");
 
@@ -411,20 +433,106 @@
                 // トークンが有効な場合のみフォーム表示
                 formContainer.classList.add("show");
 
-                const resetPasswordForm = document.getElementById("resetPasswordForm");
-                resetPasswordForm.addEventListener("submit", async (event) => {
-                    event.preventDefault();
-                    const newPassword = document.getElementById("newPassword").value;
-                    const confirmPassword = document.getElementById("confirmPassword").value;
-                    // 実際のパスワード変更処理はここに実装予定
-                    console.log("submit clicked", newPassword, confirmPassword);
-                });
+                // const resetPasswordForm = document.getElementById("resetPasswordForm");
+                // resetPasswordForm.addEventListener("submit", async (event) => {
+                //     event.preventDefault();
+                //     const newPassword = document.getElementById("newPassword").value;
+                //     const confirmPassword = document.getElementById("confirmPassword").value;
+                //     // 実際のパスワード変更処理はここに実装予定
+                //     console.log("submit clicked", newPassword, confirmPassword);
+                // });
             } catch (e) {
                 console.error(e);
                 loadingContainer.classList.add("hide");
                 showAlert("通信エラーが発生しました。時間をおいて再度お試しください。", "danger");
             }
         });
+
+        /* パスワードチェック関数内（仮定） */
+        function validatePassword(password) {
+            let passChk = true; // 初期値はtrueとし、満たされない条件があればfalseにする
+
+            // 1つ目の条件: 8文字以上か
+            const reqLengthElement = document.getElementById("reqLength");
+            if (password.length < 8) {
+                reqLengthElement.classList.remove("success");
+                reqLengthElement.classList.add("validated");
+                passChk = false;
+            } else {
+                reqLengthElement.classList.remove("validated");
+                reqLengthElement.classList.add("success");
+            }
+
+            // 2つ目の条件: 大文字・小文字・数字がそれぞれ1つずつ以上含まれているか (複雑性)
+            // 正規表現: (?=.*[a-z]) - 少なくとも1つの小文字
+            //          (?=.*[A-Z]) - 少なくとも1つの大文字
+            //          (?=.*\d)    - 少なくとも1つの数字
+            const complexityRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+            const reqComplexityElement = document.getElementById("reqComplexity");
+            if (!complexityRegex.test(password)) {
+                reqComplexityElement.classList.remove("success");
+                reqComplexityElement.classList.add("validated");
+                passChk = false;
+            } else {
+                reqComplexityElement.classList.remove("validated");
+                reqComplexityElement.classList.add("success");
+            }
+
+            // 3つ目の条件: 英数のみで構成されているか
+            // 正規表現: ^[a-zA-Z0-9]+$ - 英字（大小）または数字で始まり、それらのみで構成されている
+            const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+            const reqAlphanumericElement = document.getElementById("reqAlphanumeric");
+            if (!alphanumericRegex.test(password)) {
+                reqAlphanumericElement.classList.remove("success");
+                reqAlphanumericElement.classList.add("validated");
+                passChk = false;
+            } else {
+                reqAlphanumericElement.classList.remove("validated");
+                reqAlphanumericElement.classList.add("success");
+            }
+
+            newPassChk = passChk;
+        }
+
+        const validateConfirmPassword = (password) => {
+            let passChk = true;
+            const newPassword = document.getElementById("newPassword").value;
+            if (password !== newPassword) {
+                document.getElementById("reqMatch").classList.remove("success");
+                document.getElementById("reqMatch").classList.add("validated");
+                passChk = false;
+            } else {
+                document.getElementById("reqMatch").classList.remove("validated");
+                document.getElementById("reqMatch").classList.add("success");
+                passChk = true;
+            }
+            confirmPassChk = passChk;
+            submitBtn();
+        };
+
+        const submitBtn = () => {
+            if (newPassChk && confirmPassChk) {
+                document.getElementById("submitBtn").disabled = false;
+                return true;
+            } else {
+                document.getElementById("submitBtn").disabled = true;
+                return false;
+            }
+        };
+
+        const togglePassword = (inputId, iconElement) => {
+            const input = document.getElementById(inputId);
+            const icon = iconElement.querySelector("i");
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            }
+        };
     </script>
 </body>
 
