@@ -357,29 +357,73 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
     <script>
+        // 簡易アラート表示関数
+        function showAlert(message, type = "danger") {
+            const alertContainer = document.getElementById("alertContainer");
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type}" role="alert">
+                    ${message}
+                </div>
+            `;
+        }
 
         document.addEventListener("DOMContentLoaded", async () => {
             const urlParams = new URLSearchParams(window.location.search);
-            console.log(urlParams.get("token"));
-            const response = await fetch(`https://us-central1-outi-log.cloudfunctions.net/checkResetPageVisible`, {
-                method: "POST",
-                body: JSON.stringify({
-                    token: urlParams.get("token")
-                })
-            });
-            console.log(response);
+            const token = urlParams.get("token");
 
             const loadingContainer = document.getElementById("loadingContainer");
-            loadingContainer.classList.add("hide");
             const formContainer = document.getElementById("formContainer");
-            formContainer.classList.add("show");
 
-            const resetPasswordForm = document.getElementById("resetPasswordForm");
-            resetPasswordForm.addEventListener("submit", async (event) => {
-                event.preventDefault();
-                const newPassword = document.getElementById("newPassword").value;
-                const confirmPassword = document.getElementById("confirmPassword").value;
-            });
+            // トークンが URL に無い場合
+            if (!token) {
+                loadingContainer.classList.add("hide");
+                showAlert("このURLは無効です。もう一度パスワードリセットをやり直してください。", "danger");
+                return;
+            }
+
+            try {
+                const response = await fetch("https://us-central1-outi-log.cloudfunctions.net/checkResetPageVisible", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ token })
+                });
+
+                const resJson = await response.json().catch(() => ({}));
+
+                loadingContainer.classList.add("hide");
+
+                if (!response.ok) {
+                    // Cloud Functions 側のエラー内容に応じてメッセージを出し分け
+                    if (resJson && resJson.error === "token expired") {
+                        showAlert("このURLの有効期限が切れています。もう一度パスワードリセットを行ってください。", "danger");
+                    } else if (resJson && resJson.error === "token already used") {
+                        showAlert("このURLはすでに使用されています。新しいパスワードリセットメールを発行してください。", "danger");
+                    } else if (resJson && (resJson.error === "token not found" || resJson.error === "invalid token format" || resJson.error === "token is required")) {
+                        showAlert("このURLは無効です。もう一度パスワードリセットをやり直してください。", "danger");
+                    } else {
+                        showAlert("エラーが発生しました。時間をおいて再度お試しください。", "danger");
+                    }
+                    return;
+                }
+
+                // トークンが有効な場合のみフォーム表示
+                formContainer.classList.add("show");
+
+                const resetPasswordForm = document.getElementById("resetPasswordForm");
+                resetPasswordForm.addEventListener("submit", async (event) => {
+                    event.preventDefault();
+                    const newPassword = document.getElementById("newPassword").value;
+                    const confirmPassword = document.getElementById("confirmPassword").value;
+                    // 実際のパスワード変更処理はここに実装予定
+                    console.log("submit clicked", newPassword, confirmPassword);
+                });
+            } catch (e) {
+                console.error(e);
+                loadingContainer.classList.add("hide");
+                showAlert("通信エラーが発生しました。時間をおいて再度お試しください。", "danger");
+            }
         });
     </script>
 </body>
