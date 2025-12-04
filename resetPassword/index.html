@@ -440,6 +440,10 @@
                 document.getElementById("token").value = token;
                 const resetPasswordForm = document.getElementById("resetPasswordForm");
                 resetPasswordForm.addEventListener("submit", async (event) => {
+                    // パスワード変更ボタンを無効化
+                    document.getElementById("submitBtn").disabled = true;
+                    document.getElementById("submitText").textContent = "パスワードを変更中...";
+                    document.getElementById("submitSpinner").classList.remove("d-none");
                     event.preventDefault();
                     const newPassword = document.getElementById("newPassword").value;
                     // https://changepassword-cugf7l7uea-uc.a.run.app
@@ -455,6 +459,9 @@
                     } else {
                         showAlert("エラーが発生しました。時間をおいて再度お試しください。", "danger");
                     }
+                    document.getElementById("submitBtn").disabled = false;
+                    document.getElementById("submitText").textContent = "パスワードを変更";
+                    document.getElementById("submitSpinner").classList.add("d-none");
                     return;
                 });
             } catch (e) {
