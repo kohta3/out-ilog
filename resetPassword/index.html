@@ -325,6 +325,7 @@
         <div class="form-container" id="formContainer">
             <form id="resetPasswordForm">
                 <input type="hidden" id="email" name="email">
+                <input type="hidden" id="token" name="token">
                 <div class="mb-3">
                     <label for="newPassword" class="form-label">変更後のパスワード</label>
                     <div class="password-toggle">
@@ -415,6 +416,7 @@
                 });
 
                 const resJson = await response.json().catch(() => ({}));
+                const email = resJson.email;
 
                 loadingContainer.classList.add("hide");
 
@@ -434,11 +436,11 @@
 
                 // トークンが有効な場合のみフォーム表示
                 formContainer.classList.add("show");
-
+                document.getElementById("email").value = email;
+                document.getElementById("token").value = token;
                 const resetPasswordForm = document.getElementById("resetPasswordForm");
                 resetPasswordForm.addEventListener("submit", async (event) => {
                     event.preventDefault();
-                    const email = document.getElementById("email").value;
                     const newPassword = document.getElementById("newPassword").value;
                     // https://changepassword-cugf7l7uea-uc.a.run.app
                    const response = await fetch("https://changepassword-cugf7l7uea-uc.a.run.app", {
@@ -446,7 +448,7 @@
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({email, newPassword})
+                    body: JSON.stringify({email: email, newPassword: newPassword, token: token})
                    });
                    if (response.ok) {
                     showAlert("パスワードが変更されました。", "success");
