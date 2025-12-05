@@ -237,7 +237,6 @@
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getAuth, applyActionCode } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
         
-        const language = urlParams.get('language');
         // 言語データを格納するグローバル変数
         let langData = null;
         let currentLang = "ja";
@@ -330,6 +329,8 @@
         const oobCode = urlParams.get('oobCode');
         const continueUrl = urlParams.get('continueUrl') || '../index.html';
         const apiKey = urlParams.get('apiKey');
+        const language = urlParams.get('language');
+
         
         // Firebase設定（URLパラメータから取得、またはデフォルト値を使用）
         // 注意: 実際のプロジェクトの設定値に置き換えてください
@@ -494,6 +495,7 @@
             // 言語データを読み込む
             await loadLanguageData();
             
+            console.log(language);
             // 言語を適用
             applyLanguage(language);
             
