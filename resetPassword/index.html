@@ -478,6 +478,12 @@
 
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get("token");
+            const language = urlParams.get("language");
+
+            // URLパラメータから言語を取得して適用
+            if (language) {
+                applyLanguage(language);
+            }
 
             const loadingContainer = document.getElementById("loadingContainer");
             const formContainer = document.getElementById("formContainer");
@@ -500,10 +506,12 @@
 
                 const resJson = await response.json().catch(() => ({}));
                 const email = resJson.email;
-                const language = resJson.language;
+                const resLanguage = resJson.language;
 
-                // 言語を適用
-                applyLanguage(language);
+                // レスポンスに言語が含まれている場合は上書き
+                if (resLanguage) {
+                    applyLanguage(resLanguage);
+                }
 
                 loadingContainer.classList.add("hide");
 
