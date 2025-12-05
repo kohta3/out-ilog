@@ -308,8 +308,8 @@
     <div class="reset-password-container">
         <div class="reset-password-header">
             <img src="../img/icon.jpg" alt="おうちログ">
-            <h1>パスワードリセット</h1>
-            <p>新しいパスワードを設定してください</p>
+            <h1 id="title">パスワードリセット</h1>
+            <p id="description">新しいパスワードを設定してください</p>
         </div>
 
         <div id="alertContainer"></div>
@@ -318,7 +318,7 @@
         <div class="loading-container" id="loadingContainer">
             <div class="loading-spinner" role="status" aria-label="読み込み中">
             </div>
-            <p class="loading-text">URLを確認中...</p>
+            <p class="loading-text" id="loadingText">URLを確認中...</p>
         </div>
 
         <!-- フォームコンテナ -->
@@ -327,7 +327,7 @@
                 <input type="hidden" id="email" name="email">
                 <input type="hidden" id="token" name="token">
                 <div class="mb-3">
-                    <label for="newPassword" class="form-label">変更後のパスワード</label>
+                    <label for="newPassword" class="form-label" id="newPasswordLabel">変更後のパスワード</label>
                     <div class="password-toggle">
                         <input type="password" class="form-control" id="newPassword" name="newPassword"
                             pattern="[A-Za-z0-9]+" required oninput="validatePassword(this.value)">
@@ -338,7 +338,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">パスワード確認</label>
+                    <label for="confirmPassword" class="form-label" id="confirmPasswordLabel">パスワード確認</label>
                     <div class="password-toggle">
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
                             pattern="[A-Za-z0-9]+" required oninput="validateConfirmPassword(this.value)">
@@ -350,16 +350,16 @@
 
                 <div class="password-requirements" id="passwordRequirements">
                     <div class="password-requirement" id="reqLength">
-                        <span>8文字以上</span>
+                        <span id="reqLengthText">8文字以上</span>
                     </div>
                     <div class="password-requirement" id="reqComplexity">
-                        <span>大文字・小文字・数字を1文字以上</span>
+                        <span id="reqComplexityText">大文字・小文字・数字を1文字以上</span>
                     </div>
                     <div class="password-requirement" id="reqAlphanumeric">
-                        <span>英数字のみ</span>
+                        <span id="reqAlphanumericText">英数字のみ</span>
                     </div>
                     <div class="password-requirement" id="reqMatch">
-                        <span>パスワードの一致</span>
+                        <span id="reqMatchText">パスワードの一致</span>
                     </div>
                 </div>
 
@@ -378,6 +378,87 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
     <script>
+        // 言語データを格納するグローバル変数
+        let langData = null;
+        let currentLang = "ja";
+
+        // 言語JSONを読み込む関数
+        async function loadLanguageData() {
+            try {
+                const response = await fetch("./language.json");
+                langData = await response.json();
+            } catch (e) {
+                console.error("Failed to load language data:", e);
+            }
+        }
+
+        // 言語コードをマッピングする関数
+        function mapLanguageCode(lang) {
+            if (!lang) return "en";
+            
+            // 言語コードのマッピング
+            const langMap = {
+                "ja": "ja",
+                "en": "en",
+                "en_US": "en_US",
+                "en_GB": "en_GB",
+                "ko": "ko",
+                "zh": "zh_CN",
+                "zh_CN": "zh_CN",
+                "zh_TW": "zh_TW",
+                "es": "es",
+                "de": "de",
+                "fr": "fr",
+                "it": "it",
+                "pt": "pt",
+                "ru": "ru",
+                "ar": "ar",
+                "hi": "hi",
+                "th": "th",
+                "vi": "vi",
+                "id": "id",
+                "ms": "ms",
+                "fil": "fil",
+                "nl": "nl",
+                "sv": "sv",
+                "no": "no",
+                "da": "da"
+            };
+
+            return langMap[lang] || "en";
+        }
+
+        // 言語を適用する関数
+        function applyLanguage(lang) {
+            if (!langData) return;
+            
+            const mappedLang = mapLanguageCode(lang);
+            const texts = langData[mappedLang] || langData["en"];
+            currentLang = mappedLang;
+
+            // 各要素にテキストを適用
+            document.getElementById("title").textContent = texts.title;
+            document.getElementById("description").textContent = texts.description;
+            document.getElementById("loadingText").textContent = texts.loadingText;
+            document.getElementById("newPasswordLabel").textContent = texts.newPasswordLabel;
+            document.getElementById("confirmPasswordLabel").textContent = texts.confirmPasswordLabel;
+            document.getElementById("reqLengthText").textContent = texts.reqLength;
+            document.getElementById("reqComplexityText").textContent = texts.reqComplexity;
+            document.getElementById("reqAlphanumericText").textContent = texts.reqAlphanumeric;
+            document.getElementById("reqMatchText").textContent = texts.reqMatch;
+            document.getElementById("submitText").textContent = texts.submitButton;
+
+            // ページタイトルも更新
+            document.title = texts.title + " - OutiLog";
+        }
+
+        // 言語に応じたテキストを取得する関数
+        function getText(key) {
+            if (!langData) return "";
+            const texts = langData[currentLang] || langData["en"];
+            return texts[key] || "";
+        }
+
         // 簡易アラート表示関数
         function showAlert(message, type = "danger") {
             const alertContainer = document.getElementById("alertContainer");
@@ -391,7 +472,9 @@
         document.addEventListener("DOMContentLoaded", async () => {
             let newPassChk = false;
             let confirmPassChk = false;
-            let lang = "ja";
+
+            // 言語データを読み込む
+            await loadLanguageData();
 
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get("token");
@@ -402,7 +485,7 @@
             // トークンが URL に無い場合
             if (!token) {
                 loadingContainer.classList.add("hide");
-                showAlert("このURLは無効です。もう一度パスワードリセットをやり直してください。", "danger");
+                showAlert(getText("errorInvalidUrl") || "このURLは無効です。もう一度パスワードリセットをやり直してください。", "danger");
                 return;
             }
 
@@ -417,19 +500,23 @@
 
                 const resJson = await response.json().catch(() => ({}));
                 const email = resJson.email;
+                const language = resJson.language;
+
+                // 言語を適用
+                applyLanguage(language);
 
                 loadingContainer.classList.add("hide");
 
                 if (!response.ok) {
                     // Cloud Functions 側のエラー内容に応じてメッセージを出し分け
                     if (resJson && resJson.error === "token expired") {
-                        showAlert("このURLの有効期限が切れています。もう一度パスワードリセットを行ってください。", "danger");
+                        showAlert(getText("errorExpired"), "danger");
                     } else if (resJson && resJson.error === "token already used") {
-                        showAlert("このURLはすでに使用されています。新しいパスワードリセットメールを発行してください。", "danger");
+                        showAlert(getText("errorAlreadyUsed"), "danger");
                     } else if (resJson && (resJson.error === "token not found" || resJson.error === "invalid token format" || resJson.error === "token is required")) {
-                        showAlert("このURLは無効です。もう一度パスワードリセットをやり直してください。", "danger");
+                        showAlert(getText("errorInvalidUrl"), "danger");
                     } else {
-                        showAlert("エラーが発生しました。時間をおいて再度お試しください。", "danger");
+                        showAlert(getText("errorGeneral"), "danger");
                     }
                     return;
                 }
@@ -442,7 +529,7 @@
                 resetPasswordForm.addEventListener("submit", async (event) => {
                     // パスワード変更ボタンを無効化
                     document.getElementById("submitBtn").disabled = true;
-                    document.getElementById("submitText").textContent = "パスワードを変更中...";
+                    document.getElementById("submitText").textContent = getText("submittingButton");
                     document.getElementById("submitSpinner").classList.remove("d-none");
                     event.preventDefault();
                     const newPassword = document.getElementById("newPassword").value;
@@ -455,19 +542,19 @@
                     body: JSON.stringify({email: email, newPassword: newPassword, token: token})
                    });
                    if (response.ok) {
-                    showAlert("パスワードが変更されました。", "success");
+                    showAlert(getText("successMessage"), "success");
                     } else {
-                        showAlert("エラーが発生しました。時間をおいて再度お試しください。", "danger");
+                        showAlert(getText("errorGeneral"), "danger");
                     }
                     document.getElementById("submitBtn").disabled = false;
-                    document.getElementById("submitText").textContent = "パスワードを変更";
+                    document.getElementById("submitText").textContent = getText("submitButton");
                     document.getElementById("submitSpinner").classList.add("d-none");
                     return;
                 });
             } catch (e) {
                 console.error(e);
                 loadingContainer.classList.add("hide");
-                showAlert("通信エラーが発生しました。時間をおいて再度お試しください。", "danger");
+                showAlert(getText("errorNetwork") || "通信エラーが発生しました。時間をおいて再度お試しください。", "danger");
             }
         });
 
