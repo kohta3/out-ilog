@@ -168,11 +168,11 @@
                 <div id="loadingState">
                     <div class="verification-icon loading">
                         <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">読み込み中...</span>
+                            <span class="visually-hidden">Loading...</span>
                         </div>
                     </div>
-                    <h2 class="verification-title">メール認証を処理中...</h2>
-                    <p class="verification-message">しばらくお待ちください</p>
+                    <h2 class="verification-title" id="loadingTitle">メール認証を処理中...</h2>
+                    <p class="verification-message" id="loadingMessage">しばらくお待ちください</p>
                 </div>
                 
                 <!-- Success State -->
@@ -180,12 +180,12 @@
                     <div class="verification-icon success">
                         ✓
                     </div>
-                    <h2 class="verification-title">メール認証が完了しました</h2>
+                    <h2 class="verification-title" id="successTitle">メール認証が完了しました</h2>
                     <p class="verification-message">
-                        ご登録ありがとうございます。メールアドレスの認証が正常に完了しました。<br>
+                        <span id="successMessage">ご登録ありがとうございます。メールアドレスの認証が正常に完了しました。</span><br>
                         <span id="countdownMessage">アプリに自動的に遷移します...</span>
                     </p>
-                    <a href="../index.html" class="verification-button" id="homeButton" style="display: none;">ホームに戻る</a>
+                    <a href="../index.html" class="verification-button" id="homeButton" style="display: none;"></a>
                 </div>
                 
                 <!-- Error State -->
@@ -193,12 +193,12 @@
                     <div class="verification-icon error">
                         ✕
                     </div>
-                    <h2 class="verification-title">メール認証に失敗しました</h2>
+                    <h2 class="verification-title" id="errorTitle">メール認証に失敗しました</h2>
                     <p class="verification-message" id="errorMessage">
                         認証リンクが無効または期限切れです。<br>
                         新しい認証メールを再送信してください。
                     </p>
-                    <a href="../index.html" class="verification-button">ホームに戻る</a>
+                    <a href="../index.html" class="verification-button" id="errorHomeButton">ホームに戻る</a>
                 </div>
             </div>
         </div>
@@ -237,12 +237,99 @@
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getAuth, applyActionCode } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
         
+        // 言語データを格納するグローバル変数
+        let langData = null;
+        let currentLang = "ja";
+
+        // 言語JSONを読み込む関数
+        async function loadLanguageData() {
+            try {
+                const response = await fetch("./language.json");
+                langData = await response.json();
+            } catch (e) {
+                console.error("Failed to load language data:", e);
+            }
+        }
+
+        // 言語コードをマッピングする関数
+        function mapLanguageCode(lang) {
+            if (!lang) return "en";
+            
+            const langMap = {
+                "ja": "ja",
+                "en": "en",
+                "en_US": "en_US",
+                "en_GB": "en_GB",
+                "ko": "ko",
+                "zh": "zh_CN",
+                "zh_CN": "zh_CN",
+                "zh_TW": "zh_TW",
+                "es": "es",
+                "de": "de",
+                "fr": "fr",
+                "it": "it",
+                "pt": "pt",
+                "ru": "ru",
+                "ar": "ar",
+                "hi": "hi",
+                "th": "th",
+                "vi": "vi",
+                "id": "id",
+                "ms": "ms",
+                "fil": "fil",
+                "nl": "nl",
+                "sv": "sv",
+                "no": "no",
+                "da": "da"
+            };
+
+            return langMap[lang] || "en";
+        }
+
+        // 言語を適用する関数
+        function applyLanguage(lang) {
+            if (!langData) return;
+            
+            const mappedLang = mapLanguageCode(lang);
+            const texts = langData[mappedLang] || langData["en"];
+            currentLang = mappedLang;
+
+            // 各要素にテキストを適用
+            document.getElementById("loadingTitle").textContent = texts.loadingTitle;
+            document.getElementById("loadingMessage").textContent = texts.loadingMessage;
+            document.getElementById("successTitle").textContent = texts.successTitle;
+            document.getElementById("successMessage").textContent = texts.successMessage;
+            document.getElementById("countdownMessage").textContent = texts.countdownDefault;
+            document.getElementById("homeButton").textContent = texts.homeButton;
+            document.getElementById("errorTitle").textContent = texts.errorTitle;
+            document.getElementById("errorMessage").textContent = texts.errorDefault;
+            document.getElementById("errorHomeButton").textContent = texts.homeButton;
+
+            // ページタイトルも更新
+            document.title = texts.pageTitle;
+        }
+
+        // 言語に応じたテキストを取得する関数
+        function getText(key, replacements = {}) {
+            if (!langData) return "";
+            const texts = langData[currentLang] || langData["en"];
+            let text = texts[key] || "";
+            
+            // プレースホルダーを置換
+            for (const [placeholder, value] of Object.entries(replacements)) {
+                text = text.replace(`{{${placeholder}}}`, value);
+            }
+            
+            return text;
+        }
+        
         // 1. コードの受け取り: URLパラメータからoobCode（アクションコード）を取得
         const urlParams = new URLSearchParams(window.location.search);
         const mode = urlParams.get('mode');
         const oobCode = urlParams.get('oobCode');
         const continueUrl = urlParams.get('continueUrl') || '../index.html';
         const apiKey = urlParams.get('apiKey');
+        const language = urlParams.get('language');
         
         // Firebase設定（URLパラメータから取得、またはデフォルト値を使用）
         // 注意: 実際のプロジェクトの設定値に置き換えてください
@@ -288,7 +375,7 @@
                 isMobile = true;
             } else {
                 // デスクトップの場合
-                countdownMessage.textContent = "この機能はモバイルデバイス（iOS/Android）でのみサポートされています。";
+                countdownMessage.textContent = getText("desktopMessage");
                 homeButton.style.display = 'inline-block';
                 return;
             }
@@ -299,13 +386,13 @@
                 // カウントダウン表示
                 const countdownInterval = setInterval(() => {
                     if (countdown > 0) {
-                        countdownMessage.textContent = `${countdown}秒後にアプリに自動的に遷移します...`;
+                        countdownMessage.textContent = getText("countdownSeconds", { seconds: countdown });
                         countdown--;
                     } else {
                         clearInterval(countdownInterval);
                         
                         // 1. ディープリンクを試行
-                        countdownMessage.textContent = "アプリを起動しようとしています...";
+                        countdownMessage.textContent = getText("launchingApp");
                         
                         // window.location.href を直接変更
                         window.location.href = deepLink;
@@ -314,7 +401,7 @@
                         // この時間が経過してもページがアクティブな場合（＝アプリに切り替わっていない）、
                         // ストアにリダイレクトする
                         const fallbackTimeout = setTimeout(() => {
-                            countdownMessage.textContent = "アプリがインストールされていないようです。ストアに移動します...";
+                            countdownMessage.textContent = getText("appNotInstalled");
                             window.location.href = storeUrl;
                         }, 2500);
                         
@@ -338,7 +425,7 @@
             const loadingState = document.getElementById('loadingState');
             const successState = document.getElementById('successState');
             const errorState = document.getElementById('errorState');
-            const errorMessage = document.getElementById('errorMessage');
+            const errorMessageEl = document.getElementById('errorMessage');
             
             try {
                 // メール認証の場合
@@ -366,7 +453,7 @@
                     return;
                 } else {
                     // パラメータが不足している場合
-                    throw new Error('認証リンクが無効です');
+                    throw new Error(getText("errorInvalid"));
                 }
             } catch (error) {
                 // 3. 結果の表示: 認証失敗
@@ -375,23 +462,21 @@
                 errorState.style.display = 'block';
                 
                 // エラーメッセージを設定
-                let errorMsg = '認証処理中にエラーが発生しました。';
+                let errorMsg = getText("errorGeneral");
                 let errorCode = 'unknown';
                 
                 if (error.code === 'auth/expired-action-code') {
-                    errorMsg = '認証リンクの有効期限が切れています。新しい認証メールを再送信してください。';
+                    errorMsg = getText("errorExpired");
                     errorCode = 'expired';
                 } else if (error.code === 'auth/invalid-action-code') {
-                    errorMsg = '認証リンクが無効です。新しい認証メールを再送信してください。';
+                    errorMsg = getText("errorInvalid");
                     errorCode = 'invalid';
                 } else if (error.code === 'auth/user-disabled') {
-                    errorMsg = 'このアカウントは無効化されています。サポートにお問い合わせください。';
+                    errorMsg = getText("errorUserDisabled");
                     errorCode = 'user_disabled';
-                } else if (error.message) {
-                    errorMsg = error.message;
                 }
                 
-                errorMessage.textContent = errorMsg;
+                errorMessageEl.textContent = errorMsg;
                 
                 // Google Analytics: 認証失敗イベントを計測
                 if (typeof gtag !== 'undefined') {
@@ -404,23 +489,35 @@
             }
         }
         
-        // ページ読み込み時に認証処理を実行
-        if (mode && oobCode) {
-            handleEmailVerification();
-        } else {
-            // パラメータがない場合はエラーを表示
-            document.getElementById('loadingState').style.display = 'none';
-            document.getElementById('errorState').style.display = 'block';
-            document.getElementById('errorMessage').textContent = '認証リンクが正しくありません。メールに記載されているリンクを確認してください。';
+        // 初期化処理
+        async function init() {
+            // 言語データを読み込む
+            await loadLanguageData();
             
-            // Google Analytics: パラメータ不足イベントを計測
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'email_verification_error', {
-                    event_category: 'Authentication',
-                    event_label: 'Missing Parameters'
-                });
+            // 言語を適用
+            applyLanguage(language);
+            
+            // ページ読み込み時に認証処理を実行
+            if (mode && oobCode) {
+                handleEmailVerification();
+            } else {
+                // パラメータがない場合はエラーを表示
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('errorState').style.display = 'block';
+                document.getElementById('errorMessage').textContent = getText("errorMissingParams");
+                
+                // Google Analytics: パラメータ不足イベントを計測
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'email_verification_error', {
+                        event_category: 'Authentication',
+                        event_label: 'Missing Parameters'
+                    });
+                }
             }
         }
+        
+        // 初期化実行
+        init();
     </script>
 </body>
 
