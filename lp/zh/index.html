@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>OutiLog - 情侶・家庭共享的家計簿、行事曆與購物清單 App</title>
+    <meta name="title" content="OutiLog - 情侶・家庭共享的家計簿、行事曆與購物清單 App">
+    <meta name="description"
+        content="一個整合家計簿、行事曆與購物清單的共享 App，適合情侶與家庭共同使用。支援 Android 與 iOS，免費下載。讓金錢管理與行程安排更有效率。">
+    <meta name="keywords"
+        content="家計簿, 行事曆, 購物清單, 共享 App, 情侶, 家庭, 家計管理, 行程管理, Android, iOS, 免費 App, OutiLog">
+    <meta name="author" content="OutiLog">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Traditional Chinese">
+    <meta name="revisit-after" content="7 days">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://outilog.com/lp/zh/">
+    <meta property="og:title" content="OutiLog - 情侶・家庭共享的家計簿、行事曆與購物清單 App">
+    <meta property="og:description"
+        content="一個整合家計簿、行事曆與購物清單的共享 App，適合情侶與家庭共同使用。支援 Android 與 iOS，免費下載。">
+    <meta property="og:image" content="https://outilog.com/img/ogp_card/card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="OutiLog">
+    <meta property="og:locale" content="zh_TW">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://outilog.com/lp/zh/">
+    <meta property="twitter:title" content="OutiLog - 情侶・家庭共享的家計簿、行事曆與購物清單 App">
+    <meta property="twitter:description"
+        content="一個整合家計簿、行事曆與購物清單的共享 App，適合情侶與家庭共同使用。支援 Android 與 iOS，免費下載。">
+    <meta property="twitter:image" content="https://outilog.com/img/ogp_card/card.png">
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="OutiLog">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://outilog.com/lp/zh/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="../../img/favicon_32px.ico">
+    <link rel="apple-touch-icon" href="../../img/favicon_32px.ico">
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="../../img/favicon_32px.ico">
+    <link rel="icon" type="image/jpeg" sizes="16x16" href="../../img/favicon_32px.ico">
+    <link rel="shortcut icon" href="../../img/favicon_32px.ico">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.clarity.ms">
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "vjturlj6cl");
+    </script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "OutiLog",
+        "description": "一個整合家計簿、行事曆與購物清單的共享 App，適合情侶與家庭共同使用。",
+        "url": "https://outilog.com/lp/zh/",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": ["Android", "iOS"],
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "JPY"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.5",
+            "ratingCount": "100"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "OutiLog"
+        },
+        "screenshot": [
+            "https://outilog.com/img/ogp_card/card.png",
+            "https://outilog.com/img/home.png",
+            "https://outilog.com/img/kakeibo.png",
+            "https://outilog.com/img/schedule_list_view.png",
+            "https://outilog.com/img/schedule_timeline_view.png",
+            "https://outilog.com/img/buy_list.png"
+        ],
+        "featureList": [
+            "家計簿功能",
+            "行事曆管理",
+            "購物清單",
+            "情侶與家庭之間的資訊共享"
+        ]
+    }
+    </script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/LP/index.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H75MEDHP22"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-H75MEDHP22', {
+            page_title: 'OutiLog - 情侶・家庭共享的家計簿、行事曆與購物清單 App',
+            page_location: window.location.href
+        });
+    </script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="d-flex flex-column flex-lg-row justify-content-center align-items-center">
+        <div class="header-left d-flex flex-column justify-content-center align-items-center align-items-lg-start">
+            <div class="header-left-top">
+                <img src="../../img/logo_rm_bg.png" alt="OutiLog" width="30" height="30">
+                <span>
+                    適合情侶與家庭
+                </span>
+            </div>
+            <h1 class="header-left-title">一起生活，<br> <span>更聰明、更輕鬆</span></h1>
+            <p class="header-left-description">
+                用一個 App 同步家計簿、行事曆與購物清單。<br>讓你和重要的人一起生活，更簡單也更愉快。
+            </p>
+            <div class="header-left-app-link d-flex flex-row flex-wrap">
+                <a href="https://apps.apple.com/jp/app/%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB-%E5%AE%B6%E8%A8%88%E7%B0%BF-%E8%B2%B7%E3%81%84%E7%89%A9%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E5%85%B1%E6%9C%89-%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163"
+                    class="app-link-ios">
+                    <img src="../../img/app_button/Download_on_the_App_Store_Badge_JP_RGB_blk_100317.svg"
+                        alt="App Store">
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.prod.outilog" class="app-link-android">
+                    <img src="../../img/app_button/GetItOnGooglePlay_Badge_Web_color_Japanese.png" alt="Google Play">
+                </a>
+            </div>
+            <div
+                class="header-left-download-count d-flex flex-row justify-content-center justify-content-lg-start">
+                <div><span class="count-number">200+</span><br><span class="count-label">下載次數</span></div>
+                <div class="divider"></div>
+                <div><span class="count-number">4.5</span><br><span class="count-label">評分</span></div>
+            </div>
+        </div>
+        <div class="header-right">
+            <img src="../../img/lp/app_image.png" alt="OutiLog">
+        </div>
+    </header>
+    <main>
+        <section>
+            <div class="feature-title">
+                <h2>需要的功能，全都在這裡</h2>
+                <p>只保留一起生活真正需要的功能。介面簡潔，讓你每天都想打開來用。</p>
+            </div>
+            <div class="feature-cards row g-4 justify-content-center px-10">
+                <div class="col-12 col-md-6 col-xl-4 d-flex">
+                    <div class="feature-card d-flex flex-column w-100">
+                        <div class="feature-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-wallet w-7 h-7 text-white"
+                                aria-hidden="true">
+                                <path
+                                    d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1">
+                                </path>
+                                <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path>
+                            </svg>
+                        </div>
+                        <h3>家計簿共享</h3>
+                        <p>輕鬆記錄並共享收支。依照類別分析，兩個人的金錢流向一目瞭然。</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4 d-flex">
+                    <div class="feature-card d-flex flex-column w-100">
+                        <div class="feature-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-calendar w-7 h-7 text-white"
+                                aria-hidden="true">
+                                <path d="M8 2v4"></path>
+                                <path d="M16 2v4"></path>
+                                <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                                <path d="M3 10h18"></path>
+                            </svg>
+                        </div>
+                        <h3>行事曆管理</h3>
+                        <p>共享彼此的行程，協調安排更順利。重要紀念日也能透過提醒不會錯過。</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4 d-flex">
+                    <div class="feature-card d-flex flex-column w-100">
+                        <div class="feature-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-shopping-cart w-7 h-7 text-white"
+                                aria-hidden="true">
+                                <circle cx="8" cy="21" r="1"></circle>
+                                <circle cx="19" cy="21" r="1"></circle>
+                                <path
+                                    d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3>購物清單</h3>
+                        <p>即時共享需要購買的物品。避免忘記買東西，也不會重複購買。</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4 d-flex">
+                    <div class="feature-card d-flex flex-column w-100">
+                        <div class="feature-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-users w-7 h-7 text-white"
+                                aria-hidden="true">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <h3>簡單的邀請功能</h3>
+                        <p>只要分享邀請碼，就能立刻與另一半或家人連結使用。</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4 d-flex">
+                    <div class="feature-card d-flex flex-column w-100">
+                        <div class="feature-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-shield w-7 h-7 text-white"
+                                aria-hidden="true">
+                                <path
+                                    d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3>隱私保護</h3>
+                        <p>資料經過加密並安全儲存，守護只屬於你們兩人的重要資訊。</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4 d-flex">
+                    <div class="feature-card d-flex flex-column w-100">
+                        <div class="feature-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-zap w-7 h-7 text-white"
+                                aria-hidden="true">
+                                <path
+                                    d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3>簡單又好用</h3>
+                        <p>直覺的設計，第一次使用也能馬上上手。打造零壓力的使用體驗。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="starter-title text-center">
+                <h2>3 個步驟就能開始使用</h2>
+                <p>不需要繁瑣設定，很快就能兩個人一起開始用。</p>
+            </div>
+            <div class="starter-content row justify-content-center align-items-center">
+                <div class="starter-content-discriptions d-flex flex-column gap-3 col-12 col-lg-6 order-2 order-lg-1">
+                    <div class="starter-content-discription d-flex">
+                        <div class="starter-content-discription-icon">
+                            <span>1</span>
+                            <div class="starter-content-discription-icon-svg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="lucide lucide-download w-8 h-8 text-white" aria-hidden="true">
+                                    <path d="M12 15V3"></path>
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <path d="m7 10 5 5 5-5"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="starter-content-discription-sentence d-flex flex-column">
+                            <h3>1. 下載 App</h3>
+                            <p>從 App Store 或 Google Play 免費下載。</p>
+                        </div>
+                    </div>
+                    <div class="starter-content-discription d-flex">
+                        <div class="starter-content-discription-icon">
+                            <span>2</span>
+                            <div class="starter-content-discription-icon-svg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="lucide lucide-user-plus w-8 h-8 text-white" aria-hidden="true">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <line x1="19" x2="19" y1="8" y2="14"></line>
+                                    <line x1="22" x2="16" y1="11" y2="11"></line>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="starter-content-discription-sentence d-flex flex-column">
+                            <h3>2. 建立帳號</h3>
+                            <p>只要輸入電子郵件，就能輕鬆免費註冊帳號。</p>
+                        </div>
+                    </div>
+                    <div class="starter-content-discription d-flex">
+                        <div class="starter-content-discription-icon">
+                            <span>3</span>
+                            <div class="starter-content-discription-icon-svg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="lucide lucide-users w-8 h-8 text-white" aria-hidden="true">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="starter-content-discription-sentence d-flex flex-column">
+                            <h3>3. 邀請另一半或家人</h3>
+                            <p>分享邀請碼，很快就能一起開始使用OutiLog。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="starter-content-image col-12 col-lg-6 order-1 order-lg-2 mb-4 mb-lg-0">
+                    <img src="../../img/lp/lp_header.png" alt="OutiLog">
+                </div>
+            </div>
+            <div>
+
+            </div>
+        </section>
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>現在就下載，<br>讓兩個人的生活升級</h2>
+                <p class="cta-description">已有許多情侶與家庭，透過OutiLog享受更聰明的生活方式。</p>
+                <div class="cta-buttons">
+                    <a href="https://apps.apple.com/jp/app/%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB-%E5%AE%B6%E8%A8%88%E7%B0%BF-%E8%B2%B7%E3%81%84%E7%89%A9%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E5%85%B1%E6%9C%89-%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163"
+                        class="cta-app-link">
+                        <img src="../../img/app_button/Download_on_the_App_Store_Badge_JP_RGB_blk_100317.svg"
+                            alt="App Store">
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.prod.outilog" class="cta-app-link">
+                        <img src="../../img/app_button/GetItOnGooglePlay_Badge_Web_color_Japanese.png"
+                            alt="Google Play">
+                    </a>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="footer-logo-icon"><img src="../../img/logo_rm_bg.png" alt="OutiLog" width="40"
+                                height="40"></span>
+                        <span class="footer-logo-text">OutiLog</span>
+                    </div>
+                    <p class="footer-description">為情侶與家庭打造的生活共享 App。<br>一起生活，更聰明、更順心。</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4>下載</h4>
+                        <ul>
+                            <li><a href="https://apps.apple.com/jp/app/%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB-%E5%AE%B6%E8%A8%88%E7%B0%BF-%E8%B2%B7%E3%81%84%E7%89%A9%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E5%85%B1%E6%9C%89-%E3%81%8A%E3%81%86%E3%81%A1%E3%83%AD%E3%82%B0/id6752274163">App
+                                    Store</a></li>
+                            <li><a href="https://play.google.com/store/apps/details?id=com.prod.outilog">Google
+                                    Play</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h4>支援</h4>
+                        <ul>
+                            <li><a href="../../support.html">聯絡我們</a></li>
+                            <li><a href="../../privacy_policy.html">隱私權政策</a></li>
+                            <li><a href="../../account_deletion.html">帳號刪除</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 OutiLog. All rights reserved.</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+
