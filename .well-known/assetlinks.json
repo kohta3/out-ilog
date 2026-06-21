@@ -1,0 +1,14 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.prod.outilog",
+      "sha256_cert_fingerprints": [
+        "9E:9F:6D:15:06:BE:2B:5B:AF:2A:10:A0:3B:5C:AA:6F:28:EB:2B:14:75:9C:91:41:6A:15:C4:9C:D2:89:C9:75",
+        "3F:01:82:4A:17:67:2E:B0:AA:8F:35:5F:EA:CA:B8:BC:F1:88:30:F2:8E:87:53:EB:63:F2:82:51:27:92:E5:CB",
+        "11:A3:9B:0C:8F:A6:83:09:02:BB:4F:7E:F0:57:C2:99:FE:9A:DA:8B:FE:EB:9B:BE:21:1F:39:0A:45:43:16:F2"
+      ]
+    }
+  }
+]

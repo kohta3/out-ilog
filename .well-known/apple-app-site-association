@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["CB74J5473A.com.prod.outiLog"],
+        "components": [
+          { "/": "/invite", "comment": "invite landing" },
+          { "/": "/invite/*", "comment": "invite landing subpaths" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OutiLog 招待</title>
+  <style>
+    :root { --brand: #ff8a3d; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      background: #fff7f0; color: #333; display: flex; min-height: 100vh;
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    .card {
+      background: #fff; border-radius: 20px; padding: 32px 24px; max-width: 380px; width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08); text-align: center;
+    }
+    h1 { font-size: 20px; margin: 8px 0 4px; }
+    p { font-size: 14px; line-height: 1.7; color: #666; }
+    .code {
+      font-size: 22px; font-weight: 700; letter-spacing: 2px; background: #fff3e8;
+      color: var(--brand); padding: 12px; border-radius: 12px; margin: 12px 0;
+    }
+    .btn {
+      display: block; width: 100%; padding: 14px; border-radius: 12px; border: none;
+      font-size: 15px; font-weight: 700; margin: 10px 0; text-decoration: none; cursor: pointer;
+    }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-store { background: #111; color: #fff; }
+    .hint { font-size: 12px; color: #999; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>OutiLog に招待されました</h1>
+    <p>アプリで開いて、このスペースに参加しましょう。</p>
+    <div class="code" id="code">--------</div>
+    <a class="btn btn-primary" id="openApp" href="#">アプリで開いて参加</a>
+    <a class="btn btn-store" id="store" href="#">アプリをダウンロード</a>
+    <p class="hint">アプリが開かない場合は、上のコードをアプリ内「スペースに参加」で入力してください。</p>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var code = (params.get('code') || '').trim();
+      var appScheme = 'outilog://invite?code=' + encodeURIComponent(code);
+
+      var IOS_STORE = 'https://apps.apple.com/jp/app/id6752274163';
+      var ANDROID_STORE = 'https://play.google.com/store/apps/details?id=com.prod.outilog';
+
+      var ua = navigator.userAgent || '';
+      var isIOS = /iPhone|iPad|iPod/i.test(ua);
+      var isAndroid = /Android/i.test(ua);
+      var storeUrl = isIOS ? IOS_STORE : (isAndroid ? ANDROID_STORE : IOS_STORE);
+
+      document.getElementById('code').textContent = code || '----';
+      document.getElementById('openApp').setAttribute('href', appScheme);
+      document.getElementById('store').setAttribute('href', storeUrl);
+
+      // 自動でアプリを開こうとし、開けなければストアへフォールバック
+      function tryOpenApp() {
+        if (!code) return;
+        var now = Date.now();
+        var timer = setTimeout(function () {
+          // アプリ起動でページが非表示になればキャンセルされる
+          if (Date.now() - now < 2000 && !document.hidden) {
+            location.href = storeUrl;
+          }
+        }, 1200);
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) clearTimeout(timer);
+        });
+        location.href = appScheme;
+      }
+
+      // App Links / Universal Links が効く端末では、そもそもこのページは表示されず
+      // アプリが直接開く。表示された場合のみ自動起動を試みる。
+      window.addEventListener('load', tryOpenApp);
+    })();
+  </script>
+</body>
+</html>
